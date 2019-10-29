@@ -20,10 +20,11 @@ import com.taboola.android.listeners.TaboolaWebListener;
 import com.taboola.android.utils.AssetUtil;
 
 /**
- * The initialization of TaboolaJS is done in the Application class
- * If your project does not have an Application extending class, create one and then init TaboolaJs.
+ * This Fragment shows 2 "Web" Widgets in 1 page: A mid-page Widget & a bottom page "Feed".
+ *
+ * You might notice the integration here is similar to the integration of just 1 Widget in {@link WebBasicMidPage}
+ * The difference is in the Html content file structure, see the .html file referenced by HTML_CONTENT_FILE_TITLE in this class.
  */
-
 public class WebBasicMidPageAndFeedBellow extends Fragment {
 
     private static final String TAG = "DEBUG";

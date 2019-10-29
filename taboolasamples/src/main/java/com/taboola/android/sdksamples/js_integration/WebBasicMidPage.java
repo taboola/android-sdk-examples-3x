@@ -20,10 +20,13 @@ import com.taboola.android.listeners.TaboolaWebListener;
 import com.taboola.android.utils.AssetUtil;
 
 /**
- * The initialization of TaboolaJS is done in the Application class
- * If your project does not have an Application extending class, create one and then init TaboolaJs.
+ * This Fragment shows a basic use case for the Taboola "Web" Widget.
+ *
+ * It shows:
+ *  - The creation of a WebView that represents your own WebView.
+ *  - Wrapping that WebView with a TaboolaWeb instance.
+ *  - Loading <HTML_CONTENT_FILE_TITLE>, the Html page representing your content.
  */
-
 public class WebBasicMidPage extends Fragment {
 
     private static final String TAG = "DEBUG";
@@ -62,8 +65,12 @@ public class WebBasicMidPage extends Fragment {
             }
         });
 
+        //Apply settings to the WebView instance to improve experience.
         initWebViewSettings(mWebView);
+
+        //
         loadHtml();
+
         return mWebView;
     }
 
@@ -86,16 +93,8 @@ public class WebBasicMidPage extends Fragment {
         CookieManager.getInstance().setAcceptCookie(true);
     }
 
-    @Override
-    public void onDetach() {
-        mTaboolaWeb.clear();
-        mTaboolaWeb = null;
-        super.onDetach();
-    }
-
-
     private void loadHtml() {
-        //publisher should load its url here instead
+        //Publisher should load its url here instead
         String htmlContent = null;
         try {
             htmlContent = AssetUtil.getHtmlTemplateFileContent(getContext(), HTML_CONTENT_FILE_TITLE);
@@ -106,5 +105,10 @@ public class WebBasicMidPage extends Fragment {
         mWebView.loadDataWithBaseURL(BASE_URL, htmlContent, "text/html", "UTF-8", "");
     }
 
-
+    @Override
+    public void onDetach() {
+        mTaboolaWeb.clear();
+        mTaboolaWeb = null;
+        super.onDetach();
+    }
 }
