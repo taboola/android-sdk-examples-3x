@@ -1,0 +1,21 @@
+<resources>
+    <item name="api_view_thumbnail" type="id" />
+    <item name="api_view_title" type="id" />
+    <item name="api_view_branding" type="id" />
+    <item name="api_view_description" type="id" />
+
+
+
+
+    //Standard
+    <item name="standard_basic_xml" type="id" />
+
+    //Native
+    <item name="native_basic_4_items" type="id" />
+
+    //Web
+    <item name="web_basic_mid_page" type="id" />
+    <item name="web_basic_mid_page_and_feed_bellow" type="id" />
+
+
+</resources>

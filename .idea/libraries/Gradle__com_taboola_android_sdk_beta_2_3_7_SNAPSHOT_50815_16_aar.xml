@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.taboola:android-sdk-beta:2.3.7-SNAPSHOT-50815-16@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/android-sdk-beta-2.3.7-SNAPSHOT-50815-16.aar/e505562c351a972a3c543cf149739c3c/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/android-sdk-beta-2.3.7-SNAPSHOT-50815-16.aar/e505562c351a972a3c543cf149739c3c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/android-sdk-beta-2.3.7-SNAPSHOT-50815-16.aar/e505562c351a972a3c543cf149739c3c/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.taboola/android-sdk-beta/2.3.7-SNAPSHOT-50815-16/47005c8f909c2ab65c1b8c90dc36fe7f5c58dc35/android-sdk-beta-2.3.7-SNAPSHOT-50815-16-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
