@@ -1,1 +1,2 @@
-include ':taboolasamples'
+include ':app'
+rootProject.name = "SDK_Example_App_30"
