@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.e.sdk_example_app_30"
+        applicationId "com.taboola.sdk3example"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -13,7 +13,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    useLibrary 'org.apache.http.legacy'
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,26 +28,17 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     // Material Design
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.palette:palette:1.0.0'
     // include to have clicks opened in chrome tabs rather than in a default browser (mandatory)
-    implementation 'com.android.support:customtabs:28.0.0'
-
+    implementation "androidx.browser:browser:1.2.0"
+    //  androidx.browser replaces customtabs
     implementation 'androidx.annotation:annotation:1.1.0'
-
-    //used by the sample project
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.1'
 
     //Taboola
     implementation(group: 'com.taboola', name: 'android-sdk-beta', version: '3.0.0-22-187c2583-beta-SNAPSHOT', ext: 'aar', classifier: '')

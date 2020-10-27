@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".sdk_web.SDK_Web_Split_Feed">
+    tools:context=".sdk_web.SDKWebSplitFeed">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
