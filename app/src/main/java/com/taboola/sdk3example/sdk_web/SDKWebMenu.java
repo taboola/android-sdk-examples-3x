@@ -17,7 +17,7 @@ import com.taboola.sdk3example.R;
 public class SDKWebMenu extends AppCompatActivity implements OnClickListener {
 
 
-    private Toolbar mToolbar;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -26,8 +26,8 @@ public class SDKWebMenu extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.activity_s_d_k__web__menu);
 
 
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_taboola);
         getSupportActionBar().setTitle("SDK Web");
         resetToolbarTitle();
@@ -44,30 +44,24 @@ public class SDKWebMenu extends AppCompatActivity implements OnClickListener {
     }
     @Override
     public void onClick(View v) {
+        Class targetActivityClass;
         switch (v.getId()){
             case R.id.widgetFeed:
-                Intent intent=new Intent(this, SDKWeb.class);
-                startActivity(intent);
+                targetActivityClass= SDKWeb.class;
                 break;
             case R.id.splitfeed:
-                Intent intent1=new Intent(this, SDKWebSplitFeed.class);
-                startActivity(intent1);
+                targetActivityClass= SDKWebSplitFeed.class;
                 break;
             case R.id.viewPager:
-
-              Intent intent2=new Intent(getApplicationContext(),WebPagerviajs.class);
-              startActivity(intent2);
-
-
-
+                targetActivityClass=WebPagerviajs.class;
                 break;
-
             default:
-                break;
+                return;
         }
+        startActivity(new Intent(this,targetActivityClass));
     }
 
     private void resetToolbarTitle() {
-        mToolbar.setTitle("SDK Web");
+        toolbar.setTitle("SDK Web");
     }
 }

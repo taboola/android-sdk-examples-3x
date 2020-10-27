@@ -28,7 +28,7 @@ public class SDKWeb extends AppCompatActivity {
     private static final String HTML_CONTENT_FILE_TITLE = "sampleContentPage.html";
     private static final String base_url = "https://example.com";
     WebView webView;
-    private Toolbar mToolbar;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -36,19 +36,15 @@ public class SDKWeb extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s_d_k__web);
 
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_taboola);
         getSupportActionBar().setTitle("SDK Web Widget + Feed");
         resetToolbarTitle();
         webView = findViewById(R.id.webview);
-
-//        TBLPublisherInfo publisherInfo = new TBLPublisherInfo("sdk-tester").setApiKey("d39df1418f5a4819c9eae2ca02595d57de98c246");
-//        Taboola.init(publisherInfo);
-
+        
         TBLWebPage tblWebPage = Taboola.getWebPage();
-//        TBLWebUnit tblWebUnit= new TBLWebUnit();
-        TBLWebUnit taboolaWeb = tblWebPage.build(webView, new TBLWebListener() {
+        TBLWebUnit tblWebUnit = tblWebPage.build(webView, new TBLWebListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, @Nullable String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
@@ -62,7 +58,7 @@ public class SDKWeb extends AppCompatActivity {
 
 
     private void resetToolbarTitle() {
-        mToolbar.setTitle("SDK Web Widget + Feed");
+        toolbar.setTitle("SDK Web Widget + Feed");
     }
 
 

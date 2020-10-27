@@ -30,13 +30,13 @@ import java.util.List;
 
 public class RecyclerViewPreloadFragment extends Fragment {
 
-    private TBLClassicUnit mMiddleTaboolaWidget;
+    private TBLClassicUnit tblClassicUnit;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mMiddleTaboolaWidget = createTaboolaWidget(inflater.getContext(), false);
-        buildMiddleArticleWidget(mMiddleTaboolaWidget);
+        tblClassicUnit = createTaboolaWidget(inflater.getContext(), false);
+        buildMiddleArticleWidget(tblClassicUnit);
         return inflater.inflate(R.layout.fragment_rv_sample, container, false);
     }
 
@@ -57,8 +57,8 @@ public class RecyclerViewPreloadFragment extends Fragment {
     }
 
 
-    private static void buildMiddleArticleWidget(TBLClassicUnit taboolaWidget) {
-        taboolaWidget
+    private static void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -69,8 +69,8 @@ public class RecyclerViewPreloadFragment extends Fragment {
 
         HashMap<String, String> extraProperties = new HashMap<>();
         extraProperties.put("useOnlineTemplate", "true");
-        taboolaWidget.setUnitExtraProperties(extraProperties);
-        taboolaWidget.fetchContent();
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.fetchContent();
     }
 
     @Override
@@ -79,18 +79,18 @@ public class RecyclerViewPreloadFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.feed_rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new RecyclerViewAdapter(mMiddleTaboolaWidget));
+        recyclerView.setAdapter(new RecyclerViewAdapter(tblClassicUnit));
     }
 
     static class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private final List<ListItemsGenerator.FeedListItem> mData;
-        private final TBLClassicUnit mMiddleTaboolaWidget;
+        private final TBLClassicUnit tblClassicUnit;
 
 
-        RecyclerViewAdapter(TBLClassicUnit taboolaWidget) {
+        RecyclerViewAdapter(TBLClassicUnit tblClassicUnit1) {
             mData = ListItemsGenerator.getGeneratedDataForWidgetDynamic();
-            mMiddleTaboolaWidget = taboolaWidget;
+            tblClassicUnit = tblClassicUnit1;
         }
 
 
@@ -118,7 +118,7 @@ public class RecyclerViewPreloadFragment extends Fragment {
             switch (viewType) {
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_MID_ITEM:
-                    return new ViewHolderTaboola(mMiddleTaboolaWidget);
+                    return new ViewHolderTaboola(tblClassicUnit);
 
 
                 default:

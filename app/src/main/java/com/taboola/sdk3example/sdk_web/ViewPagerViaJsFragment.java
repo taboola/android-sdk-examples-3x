@@ -39,11 +39,11 @@ public class ViewPagerViaJsFragment extends BaseTabFragment<ViewPagerViaJsFragme
         private static final String HTML_CONTENT_FILE = "sampleContentPagePrefetch.html";
         private static final String BASE_URL = "https://example.com";
 
-        private WebView mWebView;
+        private WebView webView;
 
         @Override
         public void onPageSelected() {
-            initWebViewSettings(mWebView);
+            initWebViewSettings(webView);
             loadHtml();
         }
 
@@ -51,19 +51,18 @@ public class ViewPagerViaJsFragment extends BaseTabFragment<ViewPagerViaJsFragme
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             final Context context = inflater.getContext();
-            mWebView = new WebView(context);
+            webView = new WebView(context);
             TBLWebPage tblWebPage = Taboola.getWebPage();
-//        TBLWebUnit tblWebUnit= new TBLWebUnit();
-            TBLWebUnit taboolaWeb = tblWebPage.build(mWebView, new TBLWebListener() {
+            TBLWebUnit tblWebUnit = tblWebPage.build(webView, new TBLWebListener() {
                 @Override
                 public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, @Nullable String customData) {
                     return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
                 }
             });
 
-            initWebViewSettings(mWebView);
+            initWebViewSettings(webView);
             loadHtml();
-            return mWebView;
+            return webView;
         }
 
         private void loadHtml() {
@@ -76,13 +75,13 @@ public class ViewPagerViaJsFragment extends BaseTabFragment<ViewPagerViaJsFragme
                 Log.e(TAG, "Failed to read asset file: " + e.getLocalizedMessage());
                 e.printStackTrace();
             }
-            mWebView.loadDataWithBaseURL(BASE_URL, htmlContent, "text/html", "UTF-8", "");
+            webView.loadDataWithBaseURL(BASE_URL, htmlContent, "text/html", "UTF-8", "");
         }
 
 
         @Override
         public void onDetach() {
-            initWebViewSettings(mWebView);
+            initWebViewSettings(webView);
             loadHtml();
             super.onDetach();
         }

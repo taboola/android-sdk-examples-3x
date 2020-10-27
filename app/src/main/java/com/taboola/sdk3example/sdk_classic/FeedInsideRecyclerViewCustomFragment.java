@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,7 +23,6 @@ import com.taboola.android.Taboola;
 import com.taboola.android.annotations.TBL_PLACEMENT_TYPE;
 import com.taboola.android.listeners.TBLClassicListener;
 import com.taboola.android.utils.TBLSdkDetailsHelper;
-
 import java.util.List;
 
 
@@ -105,36 +103,36 @@ public class FeedInsideRecyclerViewCustomFragment extends Fragment {
 
 
         private final List<ListItemsGenerator.FeedListItem> mData;
-        private TBLClassicUnit mGlobalTaboolaView;
-        private TBLOnScrollChangedListenerImpl mScrollToTopListener;
-        private boolean mEnableWidgetScroll;
+        private TBLClassicUnit tblClassicUnit;
+        private TBLOnScrollChangedListenerImpl tblOnScrollChangedListener;
+        private boolean EnableWidgetScroll;
 
 
 
 
         CustomAdapter(TBLOnScrollChangedListenerImpl scrollToTopListener) {
             mData = ListItemsGenerator.getGeneratedData(false);
-            this.mScrollToTopListener = scrollToTopListener;
+            this.tblOnScrollChangedListener = scrollToTopListener;
 
         }
 
         public boolean isEnableWidgetScroll() {
-            return mEnableWidgetScroll;
+            return EnableWidgetScroll;
         }
 
         public void removeOnScrollListener() {
-            if (mGlobalTaboolaView != null) {
-//                mGlobalTaboolaView.removeListener();
-                mGlobalTaboolaView = null;
+            if (tblClassicUnit != null) {
+//                tblClassicUnit.removeListener();
+                tblClassicUnit = null;
             }
         }
 
         public   void enableWidgetScrolling(boolean enableWidgetScroll) {
-            mEnableWidgetScroll = enableWidgetScroll;
+            EnableWidgetScroll = enableWidgetScroll;
 
-            if (mGlobalTaboolaView != null) {
-                mGlobalTaboolaView.setInterceptScroll(mEnableWidgetScroll);
-                mGlobalTaboolaView.setScrollEnabled(mEnableWidgetScroll);
+            if (tblClassicUnit != null) {
+                tblClassicUnit.setInterceptScroll(EnableWidgetScroll);
+                tblClassicUnit.setScrollEnabled(EnableWidgetScroll);
             }
 
         }
@@ -172,11 +170,11 @@ public class FeedInsideRecyclerViewCustomFragment extends Fragment {
 
                         }
 
-//                        @Override
-//                        public void onTaboolaWidgetOnTop() {
-//                            super.onTaboolaWidgetOnTop();
-//                            enableWidgetScrolling(false);
-//                        }
+                        @Override
+                        public void onTaboolaWidgetOnTop() {
+                            super.onTaboolaWidgetOnTop();
+                            enableWidgetScrolling(false);
+                        }
                     });
                     return new ViewHolderTaboola(taboolaWidget);
 
@@ -199,8 +197,8 @@ public class FeedInsideRecyclerViewCustomFragment extends Fragment {
                 vh.textView.setText(randomItem.randomText);
             } else if (item.type == ListItemsGenerator.FeedListItem.ItemType.TABOOLA_ITEM) {
                 ViewHolderTaboola viewHolderTaboola = (ViewHolderTaboola) holder;
-                if (viewHolderTaboola.mTaboolaWidget.isScrolledToTop() != mEnableWidgetScroll) {
-                    viewHolderTaboola.mTaboolaWidget.setScrollEnabled(mEnableWidgetScroll);
+                if (viewHolderTaboola.tblClassicUnit.isScrolledToTop() != EnableWidgetScroll) {
+                    viewHolderTaboola.tblClassicUnit.setScrollEnabled(EnableWidgetScroll);
                 }
             }
         }
@@ -218,12 +216,12 @@ public class FeedInsideRecyclerViewCustomFragment extends Fragment {
         }
 
         static class ViewHolderTaboola extends RecyclerView.ViewHolder {
-            private TBLClassicUnit mTaboolaWidget;
+            private TBLClassicUnit tblClassicUnit;
 
 
             ViewHolderTaboola(TBLClassicUnit taboolaWidget) {
                 super(taboolaWidget);
-                mTaboolaWidget = taboolaWidget;
+                tblClassicUnit = taboolaWidget;
                 int height = TBLSdkDetailsHelper.getDisplayHeight(taboolaWidget.getContext()) * 2;
                 ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
                 taboolaWidget.setLayoutParams(params);

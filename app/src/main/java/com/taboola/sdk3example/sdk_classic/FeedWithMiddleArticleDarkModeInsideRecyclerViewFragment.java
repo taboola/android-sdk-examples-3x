@@ -33,25 +33,21 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
     private static final String TAG = "Feed+MidArticleDarkMode";
     private static final String TABOOLA_VIEW_ID = "123456";
 
-    private static TBLClassicUnit mMiddleTaboolaWidget;
-    private static TBLClassicUnit mBottomTaboolaWidget;
-
-//    private GlobalNotificationReceiver mGlobalNotificationReceiver = new GlobalNotificationReceiver();
+    private static TBLClassicUnit tblClassicUnitMiddle;
+    private static TBLClassicUnit tblClassicUnitBottom;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mGlobalNotificationReceiver.registerNotificationsListener(this);
-//        mGlobalNotificationReceiver.registerReceiver(getActivity());
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mMiddleTaboolaWidget = createTaboolaWidget(inflater.getContext(), false);
-        mBottomTaboolaWidget = createTaboolaWidget(inflater.getContext(), true);
+        tblClassicUnitMiddle = createTaboolaWidget(inflater.getContext(), false);
+        tblClassicUnitBottom = createTaboolaWidget(inflater.getContext(), true);
 
-        buildMiddleArticleWidget(mMiddleTaboolaWidget);
+        buildMiddleArticleWidget(tblClassicUnitMiddle);
         return inflater.inflate(R.layout.fragment_rv_sample, container, false);
     }
 
@@ -59,7 +55,7 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
         TBLClassicPage tblClassicPage =
                 Taboola.getClassicPage(context, "https://blog.taboola.com", "text");
 
-        TBLClassicUnit taboolaWidget = tblClassicPage.build("Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build("Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
@@ -69,7 +65,7 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
             @Override
             public void onAdReceiveSuccess() {
                 super.onAdReceiveSuccess();
-                buildBottomArticleWidget(mBottomTaboolaWidget);
+                buildBottomArticleWidget(tblClassicUnitBottom);
                 Log.d(TAG,"onAdReceiveSuccess");
             }
 
@@ -94,9 +90,6 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
                         Log.d(TAG, "UNKNOWN_ERROR");
                 }
 
-//                if (taboolaWidget.getId() == R.id.taboola_widget_middle) {
-//                    buildBottomArticleWidget(mBottomTaboolaWidget); //fetch content for the 2nd taboola asset only after completion of 1st item
-//                }
             }
 
             @Override
@@ -107,12 +100,12 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
         });
 
         int height = infiniteWidget ? TBLSdkDetailsHelper.getDisplayHeight(context) * 2 : ViewGroup.LayoutParams.WRAP_CONTENT;
-        taboolaWidget.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-        return taboolaWidget;
+        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+        return tblClassicUnit;
     }
 
-    private static void buildMiddleArticleWidget(TBLClassicUnit taboolaWidget) {
-        taboolaWidget
+    private static void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -136,13 +129,12 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
             and will instead use detailed error codes (see taboolaDidFailAd() for more details)
          */
         extraProperties.put("detailedErrorCodes", "true");
-
-        taboolaWidget.setUnitExtraProperties(extraProperties);
-        taboolaWidget.fetchContent();
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.fetchContent();
     }
 
-    private static void buildBottomArticleWidget(TBLClassicUnit taboolaWidget) {
-        taboolaWidget
+    private static void buildBottomArticleWidget(TBLClassicUnit tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -151,7 +143,7 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
                 .setTargetType("mix")
                 .setPageId(TABOOLA_VIEW_ID);
 
-        taboolaWidget.setInterceptScroll(true);
+        tblClassicUnit.setInterceptScroll(true);
 
         HashMap<String, String> extraProperties = new HashMap<>();
         extraProperties.put("useOnlineTemplate", "true");
@@ -167,8 +159,8 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
             and will instead use detailed error codes (see taboolaDidFailAd() for more details)
          */
         extraProperties.put("detailedErrorCodes", "true");
-        taboolaWidget.setUnitExtraProperties(extraProperties);
-        taboolaWidget.fetchContent();
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.fetchContent();
     }
 
     @Override
@@ -177,28 +169,26 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
         RecyclerView recyclerView = view.findViewById(R.id.feed_rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new RecyclerViewAdapter(mMiddleTaboolaWidget, mBottomTaboolaWidget));
+        recyclerView.setAdapter(new RecyclerViewAdapter(tblClassicUnitMiddle, tblClassicUnitBottom));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG,"onDestroy");
-//        mGlobalNotificationReceiver.unregisterNotificationsListener();
-//        mGlobalNotificationReceiver.unregisterReceiver(getActivity());
     }
 
     static class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private final List<ListItemsGenerator.FeedListItem> mData;
-        private final TBLClassicUnit mMiddleTaboolaWidget;
-        private final TBLClassicUnit mBottomTaboolaWidget;
+        private final TBLClassicUnit tblClassicUnitMiddle;
+        private final TBLClassicUnit tblClassicUnitBottom;
 
 
-        RecyclerViewAdapter(TBLClassicUnit taboolaWidget, TBLClassicUnit taboolaWidgetBottom) {
+        RecyclerViewAdapter(TBLClassicUnit tblClassicUnitMiddleWidget, TBLClassicUnit tblClassicUnitBottomWidget) {
             mData = ListItemsGenerator.getGeneratedDataForWidgetDynamic(true);
-            mMiddleTaboolaWidget = taboolaWidget;
-            mBottomTaboolaWidget = taboolaWidgetBottom;
+            tblClassicUnitMiddle = tblClassicUnitMiddleWidget;
+            tblClassicUnitBottom = tblClassicUnitBottomWidget;
         }
 
 
@@ -226,10 +216,10 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
             switch (viewType) {
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_MID_ITEM:
-                    return new ViewHolderTaboola(mMiddleTaboolaWidget);
+                    return new ViewHolderTaboola(tblClassicUnitMiddle);
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_ITEM:
-                    return new ViewHolderTaboola(mBottomTaboolaWidget);
+                    return new ViewHolderTaboola(tblClassicUnitBottom);
 
                 default:
                 case ListItemsGenerator.FeedListItem.ItemType.RANDOM_ITEM:
@@ -271,11 +261,5 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
             }
         }
     }
-
-
-
-
-
-
 
 }

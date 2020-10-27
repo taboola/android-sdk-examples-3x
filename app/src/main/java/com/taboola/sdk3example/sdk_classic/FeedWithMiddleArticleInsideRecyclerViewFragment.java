@@ -32,19 +32,19 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
     private static final String TAG = "FeedWithMiddleArticle";
     private static final String TABOOLA_VIEW_ID = "123456";
 
-    private static TBLClassicUnit mMiddleTaboolaWidget;
-    private static TBLClassicUnit mBottomTaboolaWidget;
+    private static TBLClassicUnit tblClassicUnitMiddle;
+    private static TBLClassicUnit tblClassicUnitBottom;
 
-//    private GlobalNotificationReceiver mGlobalNotificationReceiver = new GlobalNotificationReceiver();
+
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mMiddleTaboolaWidget = createTaboolaWidget(inflater.getContext(), false);
-        mBottomTaboolaWidget = createTaboolaWidget(inflater.getContext(), true);
+        tblClassicUnitMiddle = createTaboolaWidget(inflater.getContext(), false);
+        tblClassicUnitBottom = createTaboolaWidget(inflater.getContext(), true);
 
-        buildMiddleArticleWidget(mMiddleTaboolaWidget);
+        buildMiddleArticleWidget(tblClassicUnitMiddle);
         return inflater.inflate(R.layout.fragment_rv_sample, container, false);
     }
 
@@ -62,7 +62,7 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
             public void onAdReceiveSuccess() {
                 super.onAdReceiveSuccess();
                 Log.d(TAG,"onAdReceiveSuccess");
-                    buildBottomArticleWidget(mBottomTaboolaWidget); //fetch content for the 2nd taboola asset only after completion of 1st item
+                    buildBottomArticleWidget(tblClassicUnitBottom); //fetch content for the 2nd taboola asset only after completion of 1st item
 
             }
         });
@@ -73,8 +73,8 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
     }
 
 
-    private static void buildMiddleArticleWidget(TBLClassicUnit taboolaWidget) {
-        taboolaWidget
+    private static void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -87,12 +87,12 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
         extraProperties.put("useOnlineTemplate", "true");
         extraProperties.put("detailedErrorCodes", "true");
 
-        taboolaWidget.setUnitExtraProperties(extraProperties);
-        taboolaWidget.fetchContent();
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.fetchContent();
     }
 
-    private static void buildBottomArticleWidget(TBLClassicUnit taboolaWidget) {
-        taboolaWidget
+    private static void buildBottomArticleWidget(TBLClassicUnit tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -101,15 +101,15 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
                 .setTargetType("mix")
                 .setPageId(TABOOLA_VIEW_ID);
 
-        taboolaWidget.setInterceptScroll(true);
+        tblClassicUnit.setInterceptScroll(true);
 
         HashMap<String, String> extraProperties = new HashMap<>();
         extraProperties.put("useOnlineTemplate", "true");
 
         extraProperties.put("detailedErrorCodes", "true");
 
-        taboolaWidget.setUnitExtraProperties(extraProperties);
-        taboolaWidget.fetchContent();
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.fetchContent();
     }
 
     @Override
@@ -118,7 +118,7 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
         RecyclerView recyclerView = view.findViewById(R.id.feed_rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new RecyclerViewAdapter(mMiddleTaboolaWidget, mBottomTaboolaWidget));
+        recyclerView.setAdapter(new RecyclerViewAdapter(tblClassicUnitMiddle, tblClassicUnitBottom));
     }
 
     @Override
@@ -130,14 +130,14 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
     static class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private final List<ListItemsGenerator.FeedListItem> mData;
-        private final TBLClassicUnit mMiddleTaboolaWidget;
-        private final TBLClassicUnit mBottomTaboolaWidget;
+        private final TBLClassicUnit tblClassicUnitMiddle;
+        private final TBLClassicUnit tblClassicUnitBottom;
 
 
-        RecyclerViewAdapter(TBLClassicUnit taboolaWidget, TBLClassicUnit taboolaWidgetBottom) {
+        RecyclerViewAdapter(TBLClassicUnit tblClassicUnit, TBLClassicUnit taboolaWidgetBottom) {
             mData = ListItemsGenerator.getGeneratedDataForWidgetDynamic(true);
-            mMiddleTaboolaWidget = taboolaWidget;
-            mBottomTaboolaWidget = taboolaWidgetBottom;
+            tblClassicUnitMiddle = tblClassicUnit;
+            tblClassicUnitBottom = taboolaWidgetBottom;
         }
 
 
@@ -165,10 +165,10 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
             switch (viewType) {
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_MID_ITEM:
-                    return new ViewHolderTaboola(mMiddleTaboolaWidget);
+                    return new ViewHolderTaboola(tblClassicUnitMiddle);
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_ITEM:
-                    return new ViewHolderTaboola(mBottomTaboolaWidget);
+                    return new ViewHolderTaboola(tblClassicUnitBottom);
 
                 default:
                 case ListItemsGenerator.FeedListItem.ItemType.RANDOM_ITEM:

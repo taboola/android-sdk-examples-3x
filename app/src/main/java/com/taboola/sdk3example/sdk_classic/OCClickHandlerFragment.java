@@ -35,8 +35,8 @@ public class OCClickHandlerFragment extends Fragment  {
         return view;
     }
 
-    private void buildMiddleArticleWidget(TBLClassicUnit taboolaWidget) {
-        taboolaWidget
+    private void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -47,14 +47,14 @@ public class OCClickHandlerFragment extends Fragment  {
 
         HashMap<String, String> extraProperties = new HashMap<>();
         extraProperties.put("useOnlineTemplate", "true");
-        taboolaWidget.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
 
-        final int height = TBLSdkDetailsHelper.getDisplayHeight(taboolaWidget.getContext());
-        ViewGroup.LayoutParams params = taboolaWidget.getLayoutParams();
+        final int height = TBLSdkDetailsHelper.getDisplayHeight(tblClassicUnit.getContext());
+        ViewGroup.LayoutParams params = tblClassicUnit.getLayoutParams();
 
         if (params == null) {
             params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-            taboolaWidget.setLayoutParams(params);
+            tblClassicUnit.setLayoutParams(params);
         } else {
             params.height = height;
         }
@@ -76,9 +76,9 @@ public class OCClickHandlerFragment extends Fragment  {
             }
         };
         TBLClassicPage tblClassicPage= Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
-        tblClassicPage.addUnitToPage(taboolaWidget,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
-        taboolaWidget.setUnitExtraProperties(extraProperties);
-        taboolaWidget.fetchContent();
+        tblClassicPage.addUnitToPage(tblClassicUnit,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.fetchContent();
 
     }
 

@@ -33,14 +33,12 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
 
     private static final String TAG = "FeedWithMiddleArticleIn";
     private static final String TABOOLA_VIEW_ID = "123456";
-    private static TBLClassicUnit mTaboolaWidgetBottom;
-    private static TBLClassicUnit mTaboolaWidgetMiddle;
+    private static TBLClassicUnit tblClassicUnitBottom;
+    private static TBLClassicUnit tblClassicUnitMiddle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mGlobalNotificationReceiver.registerNotificationsListener(this);
-//        mGlobalNotificationReceiver.registerReceiver(getActivity());
     }
 
     @Nullable
@@ -52,13 +50,13 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTaboolaWidgetMiddle = createTaboolaWidget(view.getContext(), false);
-        mTaboolaWidgetBottom = createTaboolaWidget(view.getContext(), true);
+        tblClassicUnitMiddle = createTaboolaWidget(view.getContext(), false);
+        tblClassicUnitBottom = createTaboolaWidget(view.getContext(), true);
 
-        buildMiddleArticleWidget(mTaboolaWidgetMiddle);
+        buildMiddleArticleWidget(tblClassicUnitMiddle);
 
         ListView listView = view.findViewById(R.id.feed_lv);
-        listView.setAdapter(new ListViewAdapter(mTaboolaWidgetMiddle, mTaboolaWidgetBottom));
+        listView.setAdapter(new ListViewAdapter(tblClassicUnitMiddle, tblClassicUnitBottom));
     }
 
 
@@ -77,7 +75,7 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
 
                 Log.d(TAG,"onReceiveSuccess");
 
-                buildBelowArticleWidget(mTaboolaWidgetBottom); //fetch content for the 2nd taboola asset only after completion of 1st item
+                buildBelowArticleWidget(tblClassicUnitBottom); //fetch content for the 2nd taboola asset only after completion of 1st item
 
             }
         });
@@ -88,8 +86,8 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
     }
 
 
-    private static void buildMiddleArticleWidget(TBLClassicUnit taboolaWidget) {
-        taboolaWidget
+    private static void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -100,8 +98,8 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
                 .fetchContent();
     }
 
-    private static void buildBelowArticleWidget(TBLClassicUnit taboolaWidget) {
-        taboolaWidget
+    private static void buildBelowArticleWidget(TBLClassicUnit tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -110,7 +108,7 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
                 .setTargetType("mix")
                 .setPageId(TABOOLA_VIEW_ID)
                 .setInterceptScroll(true);
-        taboolaWidget.fetchContent();
+        tblClassicUnit.fetchContent();
     }
 
     @Override
@@ -126,14 +124,14 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
     static class ListViewAdapter extends BaseAdapter {
 
         private final List<ListItemsGenerator.FeedListItem> mData;
-        private TBLClassicUnit mTaboolaWidgetMiddle;
-        private TBLClassicUnit mTaboolaWidgetBottom;
+        private TBLClassicUnit tblClassicUnitMiddle;
+        private TBLClassicUnit tblClassicUnitBottom;
 
 
-        ListViewAdapter(TBLClassicUnit middleWidget, TBLClassicUnit bottomWidget) {
+        ListViewAdapter(TBLClassicUnit tblClassicUnitmiddleWidget, TBLClassicUnit tblClassicUnitbottomWidget) {
             mData = ListItemsGenerator.getGeneratedData(true);
-            mTaboolaWidgetMiddle = middleWidget;
-            mTaboolaWidgetBottom = bottomWidget;
+            tblClassicUnitMiddle = tblClassicUnitmiddleWidget;
+            tblClassicUnitBottom = tblClassicUnitbottomWidget;
         }
 
 
@@ -165,17 +163,17 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
             switch (viewType) {
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_MID_ITEM:
-                    if (mTaboolaWidgetMiddle == null) {
-                        buildMiddleArticleWidget(mTaboolaWidgetMiddle);
+                    if (tblClassicUnitMiddle == null) {
+                        buildMiddleArticleWidget(tblClassicUnitMiddle);
                     }
-                    return new ViewHolderTaboola(mTaboolaWidgetMiddle, viewType);
+                    return new ViewHolderTaboola(tblClassicUnitMiddle, viewType);
 
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_ITEM:
-                    if (mTaboolaWidgetBottom == null) {
-                        mTaboolaWidgetBottom = createTaboolaWidget(parent.getContext(), true);
+                    if (tblClassicUnitBottom == null) {
+                        tblClassicUnitBottom = createTaboolaWidget(parent.getContext(), true);
                     }
-                    return new ViewHolderTaboola(mTaboolaWidgetBottom, viewType);
+                    return new ViewHolderTaboola(tblClassicUnitBottom, viewType);
 
                 default:
                 case ListItemsGenerator.FeedListItem.ItemType.RANDOM_ITEM:

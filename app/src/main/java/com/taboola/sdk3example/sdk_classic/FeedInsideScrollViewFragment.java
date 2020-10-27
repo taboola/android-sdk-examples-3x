@@ -8,10 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-
-
 import com.taboola.sdk3example.R;
 import com.taboola.sdk3example.tabs.BaseTaboolaFragment;
 import com.taboola.android.TBLClassicPage;
@@ -20,13 +17,12 @@ import com.taboola.android.Taboola;
 import com.taboola.android.annotations.TBL_PLACEMENT_TYPE;
 import com.taboola.android.listeners.TBLClassicListener;
 import com.taboola.android.utils.TBLSdkDetailsHelper;
-
 import java.util.HashMap;
 
 
 public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
-    private TBLClassicUnit mTaboolaWidget;
-    private boolean mShouldFetch;
+    private TBLClassicUnit tblClassicUnit;
+    private boolean shouldFetch;
     private boolean isTaboolaFetched = false;
     private static String TAG="FeedInsideScrollViewFragment";
 
@@ -35,7 +31,7 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_feed_inside_sv, container, false);
-        mTaboolaWidget = view.findViewById(R.id.taboola_widget_below_article);
+        tblClassicUnit = view.findViewById(R.id.taboola_widget_below_article);
         buildBelowArticleWidget(inflater.getContext());
         return view;
     }
@@ -47,8 +43,8 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
         // unless you use RecyclerView, then you need to follow FeedInsideRecyclerViewFragment example
         Log.d(TAG,"onPageSelected");
         if (!isTaboolaFetched) {
-            mShouldFetch = true;
-            if (mTaboolaWidget != null) {
+            shouldFetch = true;
+            if (tblClassicUnit != null) {
                 fetchContent();
             }
         }
@@ -56,7 +52,7 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
 
     private void buildBelowArticleWidget(Context context) {
 
-        mTaboolaWidget
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -67,7 +63,7 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
 
         //optional
         if (!TextUtils.isEmpty(mViewId)) {
-            mTaboolaWidget.setPageId(mViewId);
+            tblClassicUnit.setPageId(mViewId);
         }
 
         //used for enable horizontal scroll
@@ -75,11 +71,11 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
         extraProperties.put("enableHorizontalScroll", "true");
         extraProperties.put("useOnlineTemplate", "true");
 
-        mTaboolaWidget.getLayoutParams().height = TBLSdkDetailsHelper.getDisplayHeight(context);
+        tblClassicUnit.getLayoutParams().height = TBLSdkDetailsHelper.getDisplayHeight(context);
 
         TBLClassicPage tblClassicPage= Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
 
-        mTaboolaWidget.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
         TBLClassicListener tblClassicListener;
         tblClassicListener=new TBLClassicListener() {
             @Override
@@ -87,15 +83,15 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
             }
         };
-        tblClassicPage.addUnitToPage(mTaboolaWidget,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
+        tblClassicPage.addUnitToPage(tblClassicUnit,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
         fetchContent();
     }
 
     private void fetchContent() {
         Log.d(TAG,"onContentFetch");
-        if (mShouldFetch) {
-            mShouldFetch = false;
-            mTaboolaWidget.fetchContent();
+        if (shouldFetch) {
+            shouldFetch = false;
+            tblClassicUnit.fetchContent();
             isTaboolaFetched = true;
         }
     }

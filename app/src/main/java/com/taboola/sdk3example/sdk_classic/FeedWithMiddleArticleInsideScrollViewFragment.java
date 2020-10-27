@@ -33,9 +33,8 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
         buildBelowArticleWidget(view.findViewById(R.id.taboola_widget_below_article));
         return view;
     }
-
-    private void buildMiddleArticleWidget(TBLClassicUnit  classicUnit) {
-         classicUnit
+    private void buildMiddleArticleWidget(TBLClassicUnit  tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -54,13 +53,13 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
         };
 
         TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
-        tblClassicPage.addUnitToPage( classicUnit,"Mid Article","alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
-         classicUnit.fetchContent();
+        tblClassicPage.addUnitToPage(tblClassicUnit,"Mid Article","alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
+        tblClassicUnit.fetchContent();
 
     }
 
-    private void buildBelowArticleWidget(TBLClassicUnit  classicUnit) {
-         classicUnit
+    private void buildBelowArticleWidget(TBLClassicUnit  tblClassicUnit) {
+        tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
@@ -70,7 +69,7 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
                 .setPageId(TABOOLA_VIEW_ID)
                 .setInterceptScroll(true);
 
-         classicUnit.getLayoutParams().height = TBLSdkDetailsHelper.getDisplayHeight( classicUnit.getContext()) * 2;
+        tblClassicUnit.getLayoutParams().height = TBLSdkDetailsHelper.getDisplayHeight( tblClassicUnit.getContext()) * 2;
         HashMap<String, String> extraProperties = new HashMap<>();
         extraProperties.put("useOnlineTemplate", "true");
         extraProperties.put("detailedErrorCodes", "true");
@@ -84,11 +83,11 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
         };
 
 
-         classicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
         TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
-        tblClassicPage.addUnitToPage( classicUnit,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
-         classicUnit.setUnitExtraProperties(extraProperties);
-         classicUnit.fetchContent();
+        tblClassicPage.addUnitToPage( tblClassicUnit,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicUnit.fetchContent();
     }
 
     @Override

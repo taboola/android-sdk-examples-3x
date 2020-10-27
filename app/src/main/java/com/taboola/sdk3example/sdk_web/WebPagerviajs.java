@@ -13,8 +13,6 @@ import com.taboola.sdk3example.R;
 
 public class WebPagerviajs extends AppCompatActivity {
 
-
-    Fragment fragment;
     private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

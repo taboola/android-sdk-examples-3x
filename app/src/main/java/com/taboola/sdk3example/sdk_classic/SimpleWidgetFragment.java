@@ -27,7 +27,7 @@ public class SimpleWidgetFragment extends Fragment {
         TBLClassicUnit tblClassicUnit =view.findViewById(R.id.taboola_view);
         TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
         HashMap<String, String> extraProperties = new HashMap<>();
-         extraProperties.put("useOnlineTemplate", "true");
+        extraProperties.put("useOnlineTemplate", "true");
         tblClassicUnit.setUnitExtraProperties(extraProperties);
         TBLClassicListener tblClassicListener;
         tblClassicListener=new TBLClassicListener() {

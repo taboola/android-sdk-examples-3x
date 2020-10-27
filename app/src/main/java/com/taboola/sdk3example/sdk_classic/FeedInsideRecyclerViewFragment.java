@@ -89,8 +89,8 @@ public class FeedInsideRecyclerViewFragment extends BaseTaboolaFragment {
             mViewId = viewId;
         }
 
-        private void buildBelowArticleWidget(TBLClassicUnit taboolaWidget) {
-            taboolaWidget
+        private void buildBelowArticleWidget(TBLClassicUnit tblClassicUnit) {
+            tblClassicUnit
                     .setPublisherName("sdk-tester-demo")
                     .setPageType("article")
                     .setPageUrl("https://blog.taboola.com")
@@ -101,17 +101,17 @@ public class FeedInsideRecyclerViewFragment extends BaseTaboolaFragment {
 
             //optional
             if (!TextUtils.isEmpty(mViewId)) {
-                taboolaWidget.setPageId(mViewId);
+                tblClassicUnit.setPageId(mViewId);
             }
 
             //used for enable horizontal scroll
             HashMap<String, String> extraProperties = new HashMap<>();
             extraProperties.put("enableHorizontalScroll", "true");
             extraProperties.put("useOnlineTemplate", "true");
-            taboolaWidget.setUnitExtraProperties(extraProperties);
+            tblClassicUnit.setUnitExtraProperties(extraProperties);
             mInfiniteTaboolaView.setUnitExtraProperties(extraProperties);
 
-            taboolaWidget.fetchContent();
+            tblClassicUnit.fetchContent();
         }
 
 
