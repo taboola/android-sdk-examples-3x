@@ -24,12 +24,12 @@ import com.taboola.sdk3example.sdk_classic.ViewPagerFragment;
 public class SDKClassicMenuFragment extends Fragment implements View.OnClickListener{
 
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener onFragmentInteractionListener;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            onFragmentInteractionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -39,7 +39,7 @@ public class SDKClassicMenuFragment extends Fragment implements View.OnClickList
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        onFragmentInteractionListener = null;
     }
 
 
@@ -118,8 +118,8 @@ public class SDKClassicMenuFragment extends Fragment implements View.OnClickList
 
 
     private void openFragment(Fragment fragment, String screenName) {
-        if (mListener != null) {
-            mListener.onMenuItemClicked(fragment, screenName);
+        if (onFragmentInteractionListener != null) {
+            onFragmentInteractionListener.onMenuItemClicked(fragment, screenName);
         }
     }
 

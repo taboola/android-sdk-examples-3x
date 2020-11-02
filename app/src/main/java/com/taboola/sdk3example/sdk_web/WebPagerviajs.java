@@ -13,15 +13,15 @@ import com.taboola.sdk3example.R;
 
 public class WebPagerviajs extends AppCompatActivity {
 
-    private Toolbar mToolbar;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_pagerviajs);
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_taboola);
         getSupportActionBar().setTitle("SDK Web View Pager");
         resetToolbarTitle();
@@ -33,7 +33,7 @@ public class WebPagerviajs extends AppCompatActivity {
                 .replace(R.id.containerframe, mFragment).commit();
     }
     private void resetToolbarTitle() {
-        mToolbar.setTitle("SDK Web View Pager");
+        toolbar.setTitle("SDK Web View Pager");
     }
 
 

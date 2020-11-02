@@ -6,18 +6,18 @@ public class TabsPresenterImp implements TabsContract.TabsPresenter {
 
     private static final String TAG = "PagePresenterImp";
     private static final String PAGE_KEY = TAG + " " + "page_key";
-    private TabsContract.TabsView mTabsView;
-    private int mCurrentPage;
+    private TabsContract.TabsView tabsView;
+    private int currentPage;
 
 
     @Override
     public void takeView(TabsContract.TabsView view) {
-        mTabsView = view;
+        tabsView = view;
     }
 
     @Override
     public void dropView() {
-        mTabsView = null;
+        tabsView = null;
     }
 
     @Override
@@ -28,17 +28,17 @@ public class TabsPresenterImp implements TabsContract.TabsPresenter {
     }
 
     private void restoreInstanceState(Bundle savedInstanceState) {
-        mCurrentPage = savedInstanceState.getInt(PAGE_KEY);
+        currentPage = savedInstanceState.getInt(PAGE_KEY);
     }
 
     @Override
     public void onSaveInstanceState(Bundle out) {
-        out.putInt(PAGE_KEY, mCurrentPage);
+        out.putInt(PAGE_KEY, currentPage);
     }
 
     @Override
     public void onStart() {
-        mTabsView.setCurrentPage(mCurrentPage);
+        tabsView.setCurrentPage(currentPage);
     }
 
     @Override
@@ -54,6 +54,6 @@ public class TabsPresenterImp implements TabsContract.TabsPresenter {
 
     @Override
     public void setCurrentPage(int position) {
-        mCurrentPage = position;
+        currentPage = position;
     }
 }

@@ -19,26 +19,26 @@ import java.util.Locale;
 
 public abstract class BaseTabFragment<T extends BaseTaboolaFragment> extends Fragment implements TabsContract.TabsView {
 
-    protected TabsContract.TabsPresenter mPresenter = new TabsPresenterImp();
-    private FragmentsAdapter<T> mAdapter;
-    private ViewPager mViewPager;
-    private ViewPager.SimpleOnPageChangeListener mOnPageChangeListener;
-    private TextView mTitleTextView;
+    protected TabsContract.TabsPresenter tabsPresenter = new TabsPresenterImp();
+    private FragmentsAdapter<T> fragmentsAdapter;
+    private ViewPager viewPager;
+    private ViewPager.SimpleOnPageChangeListener simpleOnPageChangeListener;
+    private TextView textView;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (mAdapter == null) {
-            mAdapter = new FragmentsAdapter<>(getChildFragmentManager());
+        if (fragmentsAdapter == null) {
+            fragmentsAdapter = new FragmentsAdapter<>(getChildFragmentManager());
         }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
-        mViewPager = view.findViewById(R.id.tabs_viewpager);
-        mTitleTextView = view.findViewById(android.R.id.title);
+        viewPager = view.findViewById(R.id.tabs_viewpager);
+        textView = view.findViewById(android.R.id.title);
 
         return view;
     }
@@ -46,25 +46,25 @@ public abstract class BaseTabFragment<T extends BaseTaboolaFragment> extends Fra
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupViewPagerAdapter(mAdapter);
-        mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(mAdapter.getCount());
+        setupViewPagerAdapter(fragmentsAdapter);
+        viewPager.setAdapter(fragmentsAdapter);
+        viewPager.setOffscreenPageLimit(fragmentsAdapter.getCount());
 
-        mOnPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+        simpleOnPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {
-                int currentItem = mViewPager.getCurrentItem();
-                mPresenter.setCurrentPage(currentItem);
-                T fragment = mAdapter.getItem(currentItem);
+                int currentItem = viewPager.getCurrentItem();
+                tabsPresenter.setCurrentPage(currentItem);
+                T fragment = fragmentsAdapter.getItem(currentItem);
                 fragment.onPageSelected();
-                mTitleTextView.setText(getTextForItem(currentItem));
+                textView.setText(getTextForItem(currentItem));
 
             }
         };
 
-        mViewPager.addOnPageChangeListener(mOnPageChangeListener);
-        mViewPager.post(() -> mOnPageChangeListener.onPageSelected(mViewPager.getCurrentItem()));
+        viewPager.addOnPageChangeListener(simpleOnPageChangeListener);
+        viewPager.post(() -> simpleOnPageChangeListener.onPageSelected(viewPager.getCurrentItem()));
     }
 
     @NonNull
@@ -79,38 +79,38 @@ public abstract class BaseTabFragment<T extends BaseTaboolaFragment> extends Fra
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mPresenter.takeView(this);
-        mPresenter.onActivityCreated(savedInstanceState);
+        tabsPresenter.takeView(this);
+        tabsPresenter.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        mPresenter.onSaveInstanceState(outState);
+        tabsPresenter.onSaveInstanceState(outState);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.takeView(this);
-        mPresenter.onStart();
+        tabsPresenter.takeView(this);
+        tabsPresenter.onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mPresenter.onStop();
+        tabsPresenter.onStop();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mPresenter.onDestroyView();
+        tabsPresenter.onDestroyView();
     }
 
     @Override
     public void setCurrentPage(int currentPage) {
-        mViewPager.setCurrentItem(currentPage, false);
+        viewPager.setCurrentItem(currentPage, false);
     }
 
 }

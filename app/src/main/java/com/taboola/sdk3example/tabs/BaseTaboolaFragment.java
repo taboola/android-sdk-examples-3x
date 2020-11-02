@@ -8,14 +8,14 @@ public abstract class BaseTaboolaFragment extends Fragment {
 
     public static final String VIEW_ID = "VIEW_ID";
 
-    protected String mViewId;
+    protected String getViewId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mViewId = getArguments().getString(VIEW_ID);
+            getViewId = getArguments().getString(VIEW_ID);
         }
     }
 

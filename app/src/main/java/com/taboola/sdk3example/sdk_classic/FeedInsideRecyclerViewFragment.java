@@ -47,7 +47,7 @@ public class FeedInsideRecyclerViewFragment extends BaseTaboolaFragment {
         RecyclerView recyclerView = view.findViewById(R.id.feed_rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new RecyclerViewAdapter(mViewId));
+        recyclerView.setAdapter(new RecyclerViewAdapter(getViewId));
     }
 
     public static FeedInsideRecyclerViewFragment getInstance(String viewId) {
