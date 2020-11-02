@@ -21,6 +21,7 @@ import com.taboola.android.Taboola;
 import com.taboola.android.tblnative.TBLNativePage;
 import com.taboola.android.tblnative.TBLPlacement;
 import com.taboola.android.tblnative.TBLRequestData;
+import com.taboola.sdk3example.TaboolaSampleApplication;
 
 
 import java.util.ArrayList;
@@ -30,17 +31,13 @@ import java.util.List;
 public class TabFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final int NUMBER_OF_ITEMS = 4;
-
-    private AppConfig appConfig;
-
+    private TaboolaSampleApplication taboolaSampleApplication;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-
-
     private FeedAdapter feedAdapter;
     private LinearLayoutManager layoutManager;
-
     private TBLPlacement lastUsedPlacement;
+
 
 
 
@@ -51,7 +48,8 @@ public class TabFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         recyclerView = view.findViewById(R.id.rv_main_category_tab);
 
-        appConfig = new SampleApplication().getAppConfig(getContext());
+        taboolaSampleApplication = (TaboolaSampleApplication)getActivity().getApplicationContext();
+
 
         feedAdapter = new FeedAdapter(getContext());
 
@@ -90,13 +88,13 @@ public class TabFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         TBLNativePage tblNativePage= Taboola.getNativePage("text","http://example.com");
 
 
-        TBLPublisherInfo info=new TBLPublisherInfo(appConfig.getPublisher());
+//        TBLPublisherInfo info=new TBLPublisherInfo("sdk-tester-demo");
 
         TBLRequestData tblRequestData=new TBLRequestData();
         tblRequestData.setRecCount(1);
 
 
-        ContentRepository.getFirstContentBatch(info, tblNativePage,getPlacementName(), NUMBER_OF_ITEMS,
+        ContentRepository.getFirstContentBatch(taboolaSampleApplication.tblPublisherInfo, tblNativePage,getPlacementName(), NUMBER_OF_ITEMS,
                 thumbnailWidth, thumbnailHeight, tblRequestData,
                 new ContentRepository.ContentFetchCallback() {
                     @Override
@@ -113,7 +111,7 @@ public class TabFragment extends Fragment implements SwipeRefreshLayout.OnRefres
 
     private void fetchNextPage() {
 
-        TBLPublisherInfo info=new TBLPublisherInfo(appConfig.getPublisher());
+        TBLPublisherInfo info=new TBLPublisherInfo(taboolaSampleApplication.tblPublisherInfo.getPublisherName());
 
         TBLRequestData tblRequestData=new TBLRequestData();
         tblRequestData.setRecCount(5);

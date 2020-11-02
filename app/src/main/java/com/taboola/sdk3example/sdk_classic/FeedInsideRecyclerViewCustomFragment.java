@@ -232,7 +232,6 @@ public class FeedInsideRecyclerViewCustomFragment extends Fragment {
                         .setPlacement("Feed without video")
                         .setMode("thumbs-feed-01")
                         .setTargetType("mix");
-
                 taboolaWidget.fetchContent();
             }
         }
