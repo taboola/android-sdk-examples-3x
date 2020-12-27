@@ -61,16 +61,14 @@ public class FeedInsideRecyclerViewFragment extends BaseTaboolaFragment {
 
     static TBLClassicUnit createTaboolaWidget(Context context, boolean infiniteWidget) {
         TBLClassicPage tblClassicPage =
-                Taboola.getClassicPage(context, "https://blog.taboola.com", "text");
+                Taboola.getClassicPage("https://blog.taboola.com", "text");
 
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build("Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(context, "alternating-widget-without-video-1x1","Mid Article",TBL_PLACEMENT_TYPE.FEED,new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
             }
         });
-
-
 
         int height = infiniteWidget ? TBLSdkDetailsHelper.getDisplayHeight(context) * 2 : ViewGroup.LayoutParams.WRAP_CONTENT;
         tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
