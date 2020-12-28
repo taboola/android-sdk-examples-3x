@@ -44,7 +44,7 @@ public class RecyclerViewPreloadFragment extends Fragment {
         TBLClassicPage tblClassicPage =
                 Taboola.getClassicPage("https://blog.taboola.com", "text");
 
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build(context, "alternating-widget-without-video-1x4","Mid Article",TBL_PLACEMENT_TYPE.FEED,new TBLClassicListener() {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(context,"Mid Article","alternating-widget-without-video-1x4",TBL_PLACEMENT_TYPE.FEED,new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);

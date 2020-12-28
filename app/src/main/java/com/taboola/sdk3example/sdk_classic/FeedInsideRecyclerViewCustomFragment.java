@@ -73,7 +73,7 @@ public class FeedInsideRecyclerViewCustomFragment extends Fragment {
         TBLClassicPage tblClassicPage =
                 Taboola.getClassicPage("https://blog.taboola.com", "text");
 
-        TBLClassicUnit taboolaWidget = tblClassicPage.build(this.getContext(), "alternating-widget-1x2","Mid Article",TBL_PLACEMENT_TYPE.FEED,new TBLClassicListener() {
+        TBLClassicUnit taboolaWidget = tblClassicPage.build(this.getContext(),"Mid Article","alternating-widget-1x2",TBL_PLACEMENT_TYPE.FEED,new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 Log.d(TAG,"onItemClick"+itemId);

@@ -54,8 +54,7 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
     static TBLClassicUnit createTaboolaWidget(Context context, boolean infiniteWidget) {
         TBLClassicPage tblClassicPage =
                 Taboola.getClassicPage("https://blog.taboola.com", "text");
-
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build(context, "alternating-widget-1x2","Mid Article",TBL_PLACEMENT_TYPE.FEED,new TBLClassicListener() {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(context, "Mid Article","alternating-widget-1x2",TBL_PLACEMENT_TYPE.FEED,new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
