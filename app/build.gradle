@@ -32,17 +32,13 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    // Material Design
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.2.1' // Material Design
     implementation 'androidx.palette:palette:1.0.0'
-    // include to have clicks opened in chrome tabs rather than in a default browser (mandatory)
-    implementation "androidx.browser:browser:1.2.0"
-    //  androidx.browser replaces customtabs
-    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //Taboola
-    implementation(group: 'com.taboola', name: 'android-sdk-beta', version: '3.0.0-22-187c2583-beta-SNAPSHOT', ext: 'aar', classifier: '')
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.taboola:android-sdk:3.1.0'
 
+    // To open the clicked item in a new *tab* (AndroidX project):
+    implementation "androidx.browser:browser:1.2.0"
 }

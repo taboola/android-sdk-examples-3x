@@ -52,7 +52,7 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
             }
         };
 
-        TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
+        TBLClassicPage tblClassicPage=Taboola.getClassicPage("https://blog.taboola.com", "article");
         tblClassicPage.addUnitToPage(tblClassicUnit,"Mid Article","alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
         tblClassicUnit.fetchContent();
 
@@ -84,7 +84,7 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
 
 
         tblClassicUnit.setUnitExtraProperties(extraProperties);
-        TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
+        TBLClassicPage tblClassicPage=Taboola.getClassicPage("https://blog.taboola.com", "article");
         tblClassicPage.addUnitToPage( tblClassicUnit,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
         tblClassicUnit.setUnitExtraProperties(extraProperties);
         tblClassicUnit.fetchContent();

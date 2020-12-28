@@ -73,7 +73,7 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
 
         tblClassicUnit.getLayoutParams().height = TBLSdkDetailsHelper.getDisplayHeight(context);
 
-        TBLClassicPage tblClassicPage= Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
+        TBLClassicPage tblClassicPage= Taboola.getClassicPage("https://blog.taboola.com", "article");
 
         tblClassicUnit.setUnitExtraProperties(extraProperties);
         TBLClassicListener tblClassicListener;

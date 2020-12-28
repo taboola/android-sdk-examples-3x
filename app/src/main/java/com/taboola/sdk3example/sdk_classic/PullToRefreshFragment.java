@@ -29,7 +29,7 @@ public class PullToRefreshFragment extends Fragment implements SwipeRefreshLayou
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
+        TBLClassicPage tblClassicPage=Taboola.getClassicPage("https://blog.taboola.com", "article");
         tblClassicPage.addUnitToPage(tblClassicUnit, "Below Article", "alternating-widget-without-video-1x4", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
             public void onUpdateContentCompleted() {
