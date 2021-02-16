@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //Taboola
-    implementation 'com.taboola:android-sdk:3.1.0'
+    implementation 'com.taboola:android-sdk:3.2.0'
 
     // To open the clicked item in a new *tab* (AndroidX project):
     implementation "androidx.browser:browser:1.2.0"

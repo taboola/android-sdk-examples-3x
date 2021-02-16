@@ -9,7 +9,8 @@ public class TaboolaSampleApplication extends  Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        tblPublisherInfo  = new TBLPublisherInfo("sdk-tester-demo").setApiKey("30dfcf6b094361ccc367bbbef5973bdaa24dbcd6");
+        //tblPublisherInfo  = new TBLPublisherInfo("sdk-tester-demo").setApiKey("30dfcf6b094361ccc367bbbef5973bdaa24dbcd6"); // Native Integration
+        tblPublisherInfo  = new TBLPublisherInfo("sdk-tester-demo"); // Classic and Web Integrations
         Taboola.init(tblPublisherInfo);
     }
 
