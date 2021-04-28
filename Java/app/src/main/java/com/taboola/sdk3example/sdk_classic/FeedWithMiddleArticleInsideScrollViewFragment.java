@@ -22,26 +22,25 @@ import java.util.HashMap;
 
 public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
     private static final String TAG = "DEBUG";
-    private static final String TABOOLA_VIEW_ID = "123456";
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_standard, container, false);
-        buildMiddleArticleWidget(view.findViewById(R.id.taboola_widget_middle));
-        buildBelowArticleWidget(view.findViewById(R.id.taboola_widget_below_article));
+
+        TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
+        buildMiddleArticleWidget(view.findViewById(R.id.taboola_widget_middle), tblClassicPage);
+        buildBelowArticleWidget(view.findViewById(R.id.taboola_widget_below_article), tblClassicPage);
         return view;
     }
-    private void buildMiddleArticleWidget(TBLClassicUnit  tblClassicUnit) {
+    private void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit, TBLClassicPage tblClassicPage) {
         tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
                 .setPageUrl("https://blog.taboola.com")
                 .setPlacement("Mid Article")
                 .setMode("alternating-widget-without-video-1x1")
-                .setTargetType("mix")
-                .setPageId(TABOOLA_VIEW_ID); // setViewId - used in order to prevent duplicate recommendations between widgets on the same page view
+                .setTargetType("mix"); // setViewId - used in order to prevent duplicate recommendations between widgets on the same page view
 
 
         TBLClassicListener tblClassicListener;
@@ -51,14 +50,12 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
             }
         };
-
-        TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
         tblClassicPage.addUnitToPage(tblClassicUnit,"Mid Article","alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
         tblClassicUnit.fetchContent();
 
     }
 
-    private void buildBelowArticleWidget(TBLClassicUnit  tblClassicUnit) {
+    private void buildBelowArticleWidget(TBLClassicUnit tblClassicUnit, TBLClassicPage tblClassicPage) {
         tblClassicUnit
                 .setPublisherName("sdk-tester-demo")
                 .setPageType("article")
@@ -66,7 +63,6 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
                 .setPlacement("Feed without video")
                 .setMode("thumbs-feed-01")
                 .setTargetType("mix")
-                .setPageId(TABOOLA_VIEW_ID)
                 .setInterceptScroll(true);
 
         tblClassicUnit.getLayoutParams().height = TBLSdkDetailsHelper.getDisplayHeight( tblClassicUnit.getContext()) * 2;
@@ -82,9 +78,7 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
             }
         };
 
-
         tblClassicUnit.setUnitExtraProperties(extraProperties);
-        TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
         tblClassicPage.addUnitToPage( tblClassicUnit,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
         tblClassicUnit.setUnitExtraProperties(extraProperties);
         tblClassicUnit.fetchContent();
