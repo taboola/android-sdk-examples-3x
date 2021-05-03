@@ -27,89 +27,26 @@ import com.taboola.android.utils.TBLSdkDetailsHelper;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This example shows the Middle Article Widget + Feed units in a Recyclerview. The units created in code using: tblClassicPage.build
+ */
 public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
 
-    private static final String TAG = "FeedWithMiddleArticle";
-    private static final String TABOOLA_VIEW_ID = "123456";
+    private static final String TAG = "Feed+MidArticleRecycler";
 
     private static TBLClassicUnit tblClassicUnitMiddle;
     private static TBLClassicUnit tblClassicUnitBottom;
 
-
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        tblClassicUnitMiddle = createTaboolaWidget(inflater.getContext(), false);
-        tblClassicUnitBottom = createTaboolaWidget(inflater.getContext(), true);
 
-        buildMiddleArticleWidget(tblClassicUnitMiddle);
-        return inflater.inflate(R.layout.fragment_rv_sample, container, false);
-    }
-
-    static TBLClassicUnit createTaboolaWidget(Context context, boolean infiniteWidget) {
         TBLClassicPage tblClassicPage =
-                Taboola.getClassicPage(context, "https://blog.taboola.com", "text");
+                Taboola.getClassicPage(inflater.getContext(), "https://blog.taboola.com", "article");
 
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build("Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
-                    @Override
-                    public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
-                        return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
-                    }
-
-            @Override
-            public void onAdReceiveSuccess() {
-                super.onAdReceiveSuccess();
-                Log.d(TAG,"onAdReceiveSuccess");
-                    buildBottomArticleWidget(tblClassicUnitBottom); //fetch content for the 2nd taboola asset only after completion of 1st item
-
-            }
-        });
-
-        int height = infiniteWidget ? TBLSdkDetailsHelper.getDisplayHeight(context) * 2 : ViewGroup.LayoutParams.WRAP_CONTENT;
-        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-        return tblClassicUnit;
-    }
-
-
-    private static void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
-        tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Mid Article")
-                .setMode("alternating-widget-without-video-1x1")
-                .setTargetType("mix")
-                .setPageId(TABOOLA_VIEW_ID);
-
-        HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("useOnlineTemplate", "true");
-        extraProperties.put("detailedErrorCodes", "true");
-
-        tblClassicUnit.setUnitExtraProperties(extraProperties);
-        tblClassicUnit.fetchContent();
-    }
-
-    private static void buildBottomArticleWidget(TBLClassicUnit tblClassicUnit) {
-        tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Feed without video")
-                .setMode("thumbs-feed-01")
-                .setTargetType("mix")
-                .setPageId(TABOOLA_VIEW_ID);
-
-        tblClassicUnit.setInterceptScroll(true);
-
-        HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("useOnlineTemplate", "true");
-
-        extraProperties.put("detailedErrorCodes", "true");
-
-        tblClassicUnit.setUnitExtraProperties(extraProperties);
-        tblClassicUnit.fetchContent();
+        tblClassicUnitMiddle = createTaboolaWidget(tblClassicPage);
+        tblClassicUnitBottom = createTaboolaFeed(inflater.getContext(), tblClassicPage);
+        return inflater.inflate(R.layout.fragment_rv_sample, container, false);
     }
 
     @Override
@@ -125,6 +62,47 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG,"onDestroy");
+    }
+
+
+    static TBLClassicUnit createTaboolaWidget(TBLClassicPage tblClassicPage) {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build("Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+            @Override
+            public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
+                return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
+            }
+            @Override
+            public void onAdReceiveSuccess() {
+                super.onAdReceiveSuccess();
+                Log.d(TAG,"onAdReceiveSuccess");
+            }
+        });
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+
+        tblClassicUnit.setTargetType("mix");
+        tblClassicUnit.fetchContent();
+        return tblClassicUnit;
+    }
+
+    static TBLClassicUnit createTaboolaFeed(Context context, TBLClassicPage tblClassicPage) {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build("Feed without video", "thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+            @Override
+            public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
+                return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
+            }
+            @Override
+            public void onAdReceiveSuccess() {
+                super.onAdReceiveSuccess();
+                Log.d(TAG,"onAdReceiveSuccess");
+            }
+        });
+        int height = TBLSdkDetailsHelper.getDisplayHeight(context) * 2;
+        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+        tblClassicUnit.setTargetType("mix");
+        tblClassicUnit.setInterceptScroll(true);
+        tblClassicUnit.fetchContent();
+        return tblClassicUnit;
     }
 
     static class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -212,3 +190,4 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
     }
 
 }
+

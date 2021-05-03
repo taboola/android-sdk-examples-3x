@@ -20,6 +20,9 @@ import com.taboola.android.utils.TBLSdkDetailsHelper;
 import java.util.HashMap;
 
 
+/**
+ * This example shows the Middle Article Widget + Feed units in a ScrollView. The units created via XML.
+ */
 public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
     private static final String TAG = "FeedWithMiddleArticleInsideScrollViewFragment";
 
