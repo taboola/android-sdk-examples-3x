@@ -32,7 +32,7 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
         final View view = inflater.inflate(R.layout.fragment_standard, container, false);
 
         // Create a Taboola page
-        TBLClassicPage tblClassicPage=Taboola.getClassicPage(getContext(), "https://blog.taboola.com", "article");
+        TBLClassicPage tblClassicPage=Taboola.getClassicPage( "https://blog.taboola.com", "article");
 
         // Create Taboola units for the page
         TBLClassicUnit tblClassicUnitMiddleArticle = view.findViewById(R.id.taboola_widget_middle);

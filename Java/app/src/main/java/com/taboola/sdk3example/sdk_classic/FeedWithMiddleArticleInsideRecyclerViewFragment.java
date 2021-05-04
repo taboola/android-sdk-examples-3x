@@ -42,7 +42,7 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
                              Bundle savedInstanceState) {
 
         TBLClassicPage tblClassicPage =
-                Taboola.getClassicPage(inflater.getContext(), "https://blog.taboola.com", "article");
+                Taboola.getClassicPage("https://blog.taboola.com", "article");
 
         tblClassicUnitMiddle = createTaboolaWidget(tblClassicPage);
         tblClassicUnitBottom = createTaboolaFeed(inflater.getContext(), tblClassicPage);
@@ -65,8 +65,8 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
     }
 
 
-    static TBLClassicUnit createTaboolaWidget(TBLClassicPage tblClassicPage) {
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build("Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+    public TBLClassicUnit createTaboolaWidget(TBLClassicPage tblClassicPage) {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
@@ -85,8 +85,8 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
         return tblClassicUnit;
     }
 
-    static TBLClassicUnit createTaboolaFeed(Context context, TBLClassicPage tblClassicPage) {
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build("Feed without video", "thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+    public TBLClassicUnit createTaboolaFeed(Context context, TBLClassicPage tblClassicPage) {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(), "Feed without video", "thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);

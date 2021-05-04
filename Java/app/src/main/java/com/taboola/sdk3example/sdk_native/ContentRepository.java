@@ -40,10 +40,20 @@ public class ContentRepository {
                 new TBLPlacementRequest(placementName, numberOfItems)
                         .setAvailable(true)
                         .setThumbnailSize(imageWidth, imageHeight);
-        request.addPlacementRequest(placementRequest);
 
 
+        request.addPlacementRequest(placementRequest, new TBLRecommendationRequestCallback() {
+            @Override
+            public void onRecommendationsFetched(TBLRecommendationsResponse response) {
+                TBLPlacement firstPlacement = response.getPlacementsMap().get("AC-sports-");
+                callback.onRecommendationsFetched(firstPlacement);
+            }
 
+            @Override
+            public void onRecommendationsFailed(Throwable t) {
+                callback.onRecommendationsFailed(t);
+            }
+        });
 
        // Taboola.init(publisher);
 

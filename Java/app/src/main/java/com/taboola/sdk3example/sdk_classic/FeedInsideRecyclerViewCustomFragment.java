@@ -71,9 +71,9 @@ public class FeedInsideRecyclerViewCustomFragment extends Fragment {
             }
         });
         TBLClassicPage tblClassicPage =
-                Taboola.getClassicPage(getContext(),"https://blog.taboola.com", "text");
+                Taboola.getClassicPage("https://blog.taboola.com", "text");
 
-        TBLClassicUnit taboolaWidget = tblClassicPage.build("Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+        TBLClassicUnit taboolaWidget = tblClassicPage.build(getContext(), "Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 Log.d(TAG,"onItemClick"+itemId);
@@ -161,9 +161,9 @@ public class FeedInsideRecyclerViewCustomFragment extends Fragment {
             switch (viewType) {
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_ITEM:
                     TBLClassicPage tblClassicPage =
-                            Taboola.getClassicPage(parent.getContext(),"https://blog.taboola.com", "text");
+                            Taboola.getClassicPage("https://blog.taboola.com", "text");
 
-                    TBLClassicUnit taboolaWidget = tblClassicPage.build("Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+                    TBLClassicUnit taboolaWidget = tblClassicPage.build(parent.getContext(),"Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
                         @Override
                         public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                             return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);

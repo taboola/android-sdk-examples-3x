@@ -41,7 +41,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
 
     //Taboola
-    implementation(group: 'com.taboola', name: 'android-sdk-beta', version: '3.0.0-22-187c2583-beta-SNAPSHOT', ext: 'aar', classifier: '')
+    implementation 'com.taboola:android-sdk:3.4.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
