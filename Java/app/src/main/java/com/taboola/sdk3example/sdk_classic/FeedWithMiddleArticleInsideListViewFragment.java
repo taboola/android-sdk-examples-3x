@@ -29,12 +29,7 @@ import java.util.List;
 
 public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
 
-
-
     private static final String TAG = "FeedWithMiddleArticleIn";
-    private static final String TABOOLA_VIEW_ID = "123456";
-    private static TBLClassicUnit tblClassicUnitBottom;
-    private static TBLClassicUnit tblClassicUnitMiddle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,21 +45,21 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tblClassicUnitMiddle = createTaboolaWidget(view.getContext(), false);
-        tblClassicUnitBottom = createTaboolaWidget(view.getContext(), true);
 
-        buildMiddleArticleWidget(tblClassicUnitMiddle);
+        TBLClassicPage tblClassicPage =
+                Taboola.getClassicPage("https://blog.taboola.com", "article");
+
+        TBLClassicUnit tblClassicUnitMiddle = createTaboolaWidget(tblClassicPage);
+        TBLClassicUnit tblClassicUnitBottom = createTaboolaFeed(view.getContext(), tblClassicPage);
 
         ListView listView = view.findViewById(R.id.feed_lv);
         listView.setAdapter(new ListViewAdapter(tblClassicUnitMiddle, tblClassicUnitBottom));
     }
 
 
-    public static TBLClassicUnit createTaboolaWidget(Context context, boolean infiniteWidget) {
-        TBLClassicPage tblClassicPage =
-                Taboola.getClassicPage("https://blog.taboola.com", "text");
 
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build(context,"Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+    public TBLClassicUnit createTaboolaWidget(TBLClassicPage tblClassicPage) {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
@@ -72,53 +67,42 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
             @Override
             public void onAdReceiveSuccess() {
                 super.onAdReceiveSuccess();
-
-                Log.d(TAG,"onReceiveSuccess");
-
-                buildBelowArticleWidget(tblClassicUnitBottom); //fetch content for the 2nd taboola asset only after completion of 1st item
-
+                Log.d(TAG,"onAdReceiveSuccess");
             }
         });
-
-        int height = infiniteWidget ? TBLSdkDetailsHelper.getDisplayHeight(context) * 2 : ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+        tblClassicUnit.setTargetType("mix");
+        tblClassicUnit.fetchContent();
+        return tblClassicUnit;
+    }
+
+    public TBLClassicUnit createTaboolaFeed(Context context, TBLClassicPage tblClassicPage) {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(), "Feed without video", "thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+            @Override
+            public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
+                return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
+            }
+            @Override
+            public void onAdReceiveSuccess() {
+                super.onAdReceiveSuccess();
+                Log.d(TAG,"onAdReceiveSuccess");
+            }
+        });
+        int height = TBLSdkDetailsHelper.getDisplayHeight(context) * 2;
+        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+        tblClassicUnit.setTargetType("mix");
+        tblClassicUnit.setInterceptScroll(true);
+        tblClassicUnit.fetchContent();
         return tblClassicUnit;
     }
 
 
-    private static void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
-        tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Mid Article")
-                .setMode("alternating-widget-without-video-1x1")
-                .setTargetType("mix")
-                .setPageId(TABOOLA_VIEW_ID) // setViewId - used in order to prevent duplicate recommendations between widgets on the same page view
-                .fetchContent();
-    }
-
-    private static void buildBelowArticleWidget(TBLClassicUnit tblClassicUnit) {
-        tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Feed without video")
-                .setMode("thumbs-feed-01")
-                .setTargetType("mix")
-                .setPageId(TABOOLA_VIEW_ID)
-                .setInterceptScroll(true);
-        tblClassicUnit.fetchContent();
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         Log.d(TAG,"onDestroy");
     }
-
-
 
 
     static class ListViewAdapter extends BaseAdapter {
@@ -163,16 +147,10 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
             switch (viewType) {
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_MID_ITEM:
-                    if (tblClassicUnitMiddle == null) {
-                        buildMiddleArticleWidget(tblClassicUnitMiddle);
-                    }
                     return new ViewHolderTaboola(tblClassicUnitMiddle, viewType);
 
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_ITEM:
-                    if (tblClassicUnitBottom == null) {
-                        tblClassicUnitBottom = createTaboolaWidget(parent.getContext(), true);
-                    }
                     return new ViewHolderTaboola(tblClassicUnitBottom, viewType);
 
                 default:
@@ -241,3 +219,4 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
 
     }
 }
+
