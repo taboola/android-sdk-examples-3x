@@ -31,7 +31,6 @@ import java.util.List;
 public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fragment {
 
     private static final String TAG = "Feed+MidArticleDarkMode";
-    private static final String TABOOLA_VIEW_ID = "123456";
 
     private static TBLClassicUnit tblClassicUnitMiddle;
     private static TBLClassicUnit tblClassicUnitBottom;
@@ -44,32 +43,36 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        tblClassicUnitMiddle = createTaboolaWidget(inflater.getContext(), false);
-        tblClassicUnitBottom = createTaboolaWidget(inflater.getContext(), true);
+        TBLClassicPage tblClassicPage =
+                Taboola.getClassicPage("https://blog.taboola.com", "article");
 
-        buildMiddleArticleWidget(tblClassicUnitMiddle);
+        tblClassicUnitMiddle = createTaboolaWidget(tblClassicPage);
+        tblClassicUnitBottom = createTaboolaFeed(inflater.getContext(), tblClassicPage);
+
         return inflater.inflate(R.layout.fragment_rv_sample, container, false);
     }
 
-    public TBLClassicUnit createTaboolaWidget(Context context, boolean infiniteWidget) {
-        TBLClassicPage tblClassicPage =
-                Taboola.getClassicPage("https://blog.taboola.com", "text");
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        RecyclerView recyclerView = view.findViewById(R.id.feed_rv);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(new RecyclerViewAdapter(tblClassicUnitMiddle, tblClassicUnitBottom));
+    }
+
+    public TBLClassicUnit createTaboolaWidget(TBLClassicPage tblClassicPage) {
         TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
-
             }
-
             @Override
             public void onAdReceiveSuccess() {
                 super.onAdReceiveSuccess();
-                buildBottomArticleWidget(tblClassicUnitBottom);
                 Log.d(TAG,"onAdReceiveSuccess");
             }
-
-
             @Override
             public void onAdReceiveFail(String error) {
                 Log.d(TAG,"onAdReceiveFailed"+error);
@@ -89,9 +92,7 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
                     default:
                         Log.d(TAG, "UNKNOWN_ERROR");
                 }
-
             }
-
             @Override
             public void onResize(int height) {
                 super.onResize(height);
@@ -99,78 +100,43 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
             }
         });
 
-        int height = infiniteWidget ? TBLSdkDetailsHelper.getDisplayHeight(context) * 2 : ViewGroup.LayoutParams.WRAP_CONTENT;
+        HashMap<String, String> extraProperties = new HashMap<>();
+        extraProperties.put("darkMode", "true"); // Adding Dark Mode Support
+        tblClassicUnit.setUnitExtraProperties(extraProperties);
+
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+        tblClassicUnit.setTargetType("mix");
+        tblClassicUnit.fetchContent();
         return tblClassicUnit;
     }
 
-    private static void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
-        tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Mid Article")
-                .setMode("alternating-widget-1x2")
-                .setTargetType("mix")
-                .setPageId(TABOOLA_VIEW_ID);
+    public TBLClassicUnit createTaboolaFeed(Context context, TBLClassicPage tblClassicPage) {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(), "Feed without video", "thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+            @Override
+            public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
+                return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
+            }
+
+            @Override
+            public void onAdReceiveSuccess() {
+                super.onAdReceiveSuccess();
+                Log.d(TAG,"onAdReceiveSuccess");
+            }
+        });
 
         HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("useOnlineTemplate", "true");
         extraProperties.put("darkMode", "true"); // Adding Dark Mode Support
-
-        /*
-            Adding this flag will require handling of collapsing Taboola on taboolaDidFailAd()
-            in case Taboola fails to render (set to "true" by default):
-            extraProperties.put("autoCollapseOnError", "false");
-         */
-
-        /*
-            "detailedErrorCodes" set to "true" will stop the use of unorganized and unmaintained error reasons strings
-            and will instead use detailed error codes (see taboolaDidFailAd() for more details)
-         */
-        extraProperties.put("detailedErrorCodes", "true");
         tblClassicUnit.setUnitExtraProperties(extraProperties);
-        tblClassicUnit.fetchContent();
-    }
 
-    private static void buildBottomArticleWidget(TBLClassicUnit tblClassicUnit) {
-        tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Feed without video")
-                .setMode("thumbs-feed-01")
-                .setTargetType("mix")
-                .setPageId(TABOOLA_VIEW_ID);
-
+        int height = TBLSdkDetailsHelper.getDisplayHeight(context) * 2;
+        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+        tblClassicUnit.setTargetType("mix");
         tblClassicUnit.setInterceptScroll(true);
-
-        HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("useOnlineTemplate", "true");
-        extraProperties.put("darkMode", "true"); // Adding Dark Mode Support
-        /*
-            Adding this flag will require handling of collapsing Taboola on taboolaDidFailAd()
-            in case Taboola fails to render (set to "true" by default):
-            extraProperties.put("autoCollapseOnError", "false");
-         */
-
-        /*
-            "detailedErrorCodes" set to "true" will stop the use of unorganized and unmaintained error reasons strings
-            and will instead use detailed error codes (see taboolaDidFailAd() for more details)
-         */
-        extraProperties.put("detailedErrorCodes", "true");
-        tblClassicUnit.setUnitExtraProperties(extraProperties);
         tblClassicUnit.fetchContent();
+        return tblClassicUnit;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerView = view.findViewById(R.id.feed_rv);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new RecyclerViewAdapter(tblClassicUnitMiddle, tblClassicUnitBottom));
-    }
 
     @Override
     public void onDestroy() {
