@@ -13,7 +13,7 @@ public class ViewPagerFragment extends BaseTabFragment<BaseTaboolaFragment> {
     protected void setupViewPagerAdapter(FragmentsAdapter<BaseTaboolaFragment> adapter) {
         super.setupViewPagerAdapter(adapter);
         String viewId = Long.toString(System.currentTimeMillis());
-        adapter.addFragment(FeedInsideRecyclerViewFragment.getInstance(viewId));
+        adapter.addFragment(FeedLazyLoadInsideRecyclerViewFragment.getInstance(viewId));
         adapter.addFragment(FeedInsideScrollViewFragment.getInstance(viewId));
     }
 

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.taboola.sdk3example.sdk_classic.FeedInsideRecyclerViewCustomFragment;
-import com.taboola.sdk3example.sdk_classic.FeedInsideRecyclerViewFragment;
+import com.taboola.sdk3example.sdk_classic.FeedLazyLoadInsideRecyclerViewFragment;
 import com.taboola.sdk3example.sdk_classic.FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment;
 import com.taboola.sdk3example.sdk_classic.FeedWithMiddleArticleInsideListViewFragment;
 import com.taboola.sdk3example.sdk_classic.FeedWithMiddleArticleInsideRecyclerViewFragment;
@@ -104,7 +104,7 @@ public class SDKClassicMenuFragment extends Fragment implements View.OnClickList
                 fragmentToOpen = new PullToRefreshFragment();
                 break;
             case R.id.std_feed_lazy_loading_rv:
-                fragmentToOpen = new FeedInsideRecyclerViewFragment();
+                fragmentToOpen = new FeedLazyLoadInsideRecyclerViewFragment();
                 break;
             case R.id.std_mid_article_with_feed_dark_mode_rv:
                 fragmentToOpen = new FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment();

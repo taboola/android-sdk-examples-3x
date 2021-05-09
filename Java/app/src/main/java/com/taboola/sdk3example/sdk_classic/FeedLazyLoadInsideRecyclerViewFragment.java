@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class FeedInsideRecyclerViewFragment extends BaseTaboolaFragment {
+public class FeedLazyLoadInsideRecyclerViewFragment extends BaseTaboolaFragment {
 
 
     // In RecyclerView the widget will be rendered only when the user will scroll to widget
@@ -50,8 +50,8 @@ public class FeedInsideRecyclerViewFragment extends BaseTaboolaFragment {
         recyclerView.setAdapter(new RecyclerViewAdapter(getViewId));
     }
 
-    public static FeedInsideRecyclerViewFragment getInstance(String viewId) {
-        FeedInsideRecyclerViewFragment baseTaboolaFragment = new FeedInsideRecyclerViewFragment();
+    public static FeedLazyLoadInsideRecyclerViewFragment getInstance(String viewId) {
+        FeedLazyLoadInsideRecyclerViewFragment baseTaboolaFragment = new FeedLazyLoadInsideRecyclerViewFragment();
         Bundle bundle = new Bundle();
         bundle.putString(VIEW_ID, viewId);
         baseTaboolaFragment.setArguments(bundle);
@@ -61,9 +61,9 @@ public class FeedInsideRecyclerViewFragment extends BaseTaboolaFragment {
 
     static TBLClassicUnit createTaboolaWidget(Context context, boolean infiniteWidget) {
         TBLClassicPage tblClassicPage =
-                Taboola.getClassicPage("https://blog.taboola.com", "text");
+                Taboola.getClassicPage("https://blog.taboola.com", "article");
 
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build(context,"Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(context,"Feed without video", "thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
@@ -91,11 +91,6 @@ public class FeedInsideRecyclerViewFragment extends BaseTaboolaFragment {
 
         private void buildBelowArticleWidget(TBLClassicUnit tblClassicUnit) {
             tblClassicUnit
-                    .setPublisherName("sdk-tester-demo")
-                    .setPageType("article")
-                    .setPageUrl("https://blog.taboola.com")
-                    .setPlacement("Feed without video")
-                    .setMode("thumbs-feed-01")
                     .setTargetType("mix")
                     .setInterceptScroll(true);
 

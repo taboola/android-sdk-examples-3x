@@ -35,14 +35,16 @@ public class RecyclerViewPreloadFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        tblClassicUnit = createTaboolaWidget(inflater.getContext(), false);
-        buildMiddleArticleWidget(tblClassicUnit);
+
+          tblClassicUnit = createTaboolaWidget(inflater.getContext());
+
         return inflater.inflate(R.layout.fragment_rv_sample, container, false);
     }
 
-    static TBLClassicUnit createTaboolaWidget(Context context, boolean infiniteWidget) {
+    static TBLClassicUnit createTaboolaWidget(Context context) {
+
         TBLClassicPage tblClassicPage =
-                Taboola.getClassicPage( "https://blog.taboola.com", "text");
+                Taboola.getClassicPage( "https://blog.taboola.com", "article");
 
         TBLClassicUnit tblClassicUnit = tblClassicPage.build(context,"Mid Article", "alternating-widget-without-video-1x4", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
             @Override
@@ -51,27 +53,13 @@ public class RecyclerViewPreloadFragment extends Fragment {
             }
         });
 
-        int height = infiniteWidget ? TBLSdkDetailsHelper.getDisplayHeight(context) * 2 : ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+        tblClassicUnit.setTargetType("mix");
+        tblClassicUnit.fetchContent();
         return tblClassicUnit;
     }
 
-
-    private static void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
-        tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Below Article")
-                .setMode("alternating-widget-without-video-1x4")
-                .setTargetType("mix");
-
-
-        HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("useOnlineTemplate", "true");
-        tblClassicUnit.setUnitExtraProperties(extraProperties);
-        tblClassicUnit.fetchContent();
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -93,7 +81,6 @@ public class RecyclerViewPreloadFragment extends Fragment {
             tblClassicUnit = tblClassicUnit1;
         }
 
-
         @Override
         public int getItemViewType(int position) {
             ListItemsGenerator.FeedListItem item = getItem(position);
@@ -111,7 +98,6 @@ public class RecyclerViewPreloadFragment extends Fragment {
             return mData.get(position);
         }
 
-
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -119,7 +105,6 @@ public class RecyclerViewPreloadFragment extends Fragment {
 
                 case ListItemsGenerator.FeedListItem.ItemType.TABOOLA_MID_ITEM:
                     return new ViewHolderTaboola(tblClassicUnit);
-
 
                 default:
                 case ListItemsGenerator.FeedListItem.ItemType.RANDOM_ITEM:
@@ -141,7 +126,6 @@ public class RecyclerViewPreloadFragment extends Fragment {
                 vh.textView.setText(randomItem.randomText);
             }
         }
-
 
         static class RandomImageViewHolder extends RecyclerView.ViewHolder {
             private final ImageView imageView;
