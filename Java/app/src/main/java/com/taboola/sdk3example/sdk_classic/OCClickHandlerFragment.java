@@ -31,23 +31,16 @@ public class OCClickHandlerFragment extends Fragment  {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_oc_click, container, false);
-        buildMiddleArticleWidget(view.findViewById(R.id.taboola_widget_middle));
+
+        TBLClassicPage tblClassicPage= Taboola.getClassicPage("https://blog.taboola.com", "article");
+        buildMiddleArticleWidget(view.findViewById(R.id.taboola_widget_middle), tblClassicPage);
         return view;
     }
 
-    private void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit) {
+    private void buildMiddleArticleWidget(TBLClassicUnit tblClassicUnit, TBLClassicPage tblClassicPage) {
         tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Feed without video")
-                .setMode("thumbs-feed-01")
                 .setTargetType("mix")
                 .setInterceptScroll(true);
-
-        HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("useOnlineTemplate", "true");
-        tblClassicUnit.setUnitExtraProperties(extraProperties);
 
         final int height = TBLSdkDetailsHelper.getDisplayHeight(tblClassicUnit.getContext());
         ViewGroup.LayoutParams params = tblClassicUnit.getLayoutParams();
@@ -70,18 +63,14 @@ public class OCClickHandlerFragment extends Fragment  {
                     //Returning false - the click's default behavior is aborted. The app should display the Taboola Recommendation content on its own (for example, using an in-app browser).
                     return false;
                 }
-
                 //Returning true - the click is a standard one and is sent to the Android OS for default behavior.
                 return true;
             }
         };
-        TBLClassicPage tblClassicPage= Taboola.getClassicPage("https://blog.taboola.com", "article");
+
         tblClassicPage.addUnitToPage(tblClassicUnit,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
-        tblClassicUnit.setUnitExtraProperties(extraProperties);
         tblClassicUnit.fetchContent();
-
     }
-
 
 
 }
