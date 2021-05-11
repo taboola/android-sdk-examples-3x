@@ -22,7 +22,6 @@ import java.util.HashMap;
 
 public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
     private TBLClassicUnit tblClassicUnit;
-    private boolean shouldFetch;
     private boolean isTaboolaFetched = false;
     private static String TAG="FeedInsideScrollViewFragment";
 
@@ -42,22 +41,14 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
         // this is the most common use for view pager and you should follow this example
         // unless you use RecyclerView, then you need to follow FeedInsideRecyclerViewFragment example
         Log.d(TAG,"onPageSelected");
-        if (!isTaboolaFetched) {
-            shouldFetch = true;
-            if (tblClassicUnit != null) {
-                fetchContent();
+           if (tblClassicUnit != null) {
+                fetchIfRequired();
             }
-        }
     }
 
     private void buildBelowArticleWidget(Context context) {
 
         tblClassicUnit
-                .setPublisherName("sdk-tester-demo")
-                .setPageType("article")
-                .setPageUrl("https://blog.taboola.com")
-                .setPlacement("Feed without video")
-                .setMode("thumbs-feed-01")
                 .setTargetType("mix")
                 .setInterceptScroll(true);
 
@@ -84,13 +75,12 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
             }
         };
         tblClassicPage.addUnitToPage(tblClassicUnit,"Feed without video","thumbs-feed-01", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
-        fetchContent();
+        fetchIfRequired();
     }
 
-    private void fetchContent() {
+    private void fetchIfRequired() {
         Log.d(TAG,"onContentFetch");
-        if (shouldFetch) {
-            shouldFetch = false;
+        if (!isTaboolaFetched) {
             tblClassicUnit.fetchContent();
             isTaboolaFetched = true;
         }

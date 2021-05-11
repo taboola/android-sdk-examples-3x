@@ -71,7 +71,6 @@ public class FeedLazyLoadInsideRecyclerViewFragment extends BaseTaboolaFragment 
         });
 
 
-
         int height = infiniteWidget ? TBLSdkDetailsHelper.getDisplayHeight(context) * 2 : ViewGroup.LayoutParams.WRAP_CONTENT;
         tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
         return tblClassicUnit;
