@@ -22,13 +22,12 @@ public class SimpleWidgetFragment extends Fragment {
     TBLClassicListener tblClassicListener;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_simple_widget, container, false);
         TBLClassicUnit tblClassicUnit =view.findViewById(R.id.taboola_view);
         TBLClassicPage tblClassicPage=Taboola.getClassicPage("https://blog.taboola.com", "article");
-        tblClassicPage.addUnitToPage(tblClassicUnit,"Below Article","alternating-widget-without-video-1x4", TBL_PLACEMENT_TYPE.FEED,tblClassicListener);
-        HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("useOnlineTemplate", "true");
-        tblClassicUnit.setUnitExtraProperties(extraProperties);
+        tblClassicPage.addUnitToPage(tblClassicUnit,"Below Article","alternating-widget-without-video-1x4", TBL_PLACEMENT_TYPE.PAGE_BOTTOM,tblClassicListener);
+
         tblClassicListener=new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
@@ -36,9 +35,6 @@ public class SimpleWidgetFragment extends Fragment {
             }
         };
         tblClassicUnit.fetchContent();
-
-
-
         return view;
     }
 }
