@@ -35,7 +35,7 @@ public class SummaryActivity extends Activity {
 
     public static final String ANDROID = "Android";
     private TBLRecommendationItem mTbRecommendationItem;
-    TBLNativePage taboola_view;
+
     private RecommendationItemExtraData mRecommendationItemExtraData;
 
     @Override
@@ -55,7 +55,8 @@ public class SummaryActivity extends Activity {
     }
 
     private void initTaboolaFeedWidget() {
-       taboola_view= Taboola.getNativePage("text","http://example.com");
+
+        TBLNativePage tblNativePage= Taboola.getNativePage("text","http://example.com");
 
         HashMap<String, String> optionalPageCommands = new HashMap<>();
         optionalPageCommands.put("useOnlineTemplate", "true");
@@ -63,7 +64,7 @@ public class SummaryActivity extends Activity {
         requestData.setRecCount(2);
         requestData.setThumbnailSize(100,100);
 
-        TBLNativeUnit tblNativeUnit=taboola_view.build("AC-stream-trending-", new TBLNativeListener() {
+        TBLNativeUnit tblNativeUnit=tblNativePage.build("AC-stream-trending-", new TBLNativeListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
