@@ -59,7 +59,9 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
 
 
     public TBLClassicUnit createTaboolaWidget(TBLClassicPage tblClassicPage) {
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-without-video-1x1",
+                TBL_PLACEMENT_TYPE.PAGE_MIDDLE, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
@@ -70,11 +72,9 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
                 Log.d(TAG,"onAdReceiveSuccess");
             }
         });
-        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-        tblClassicUnit.setTargetType("mix");
         tblClassicUnit.fetchContent();
         return tblClassicUnit;
+
     }
 
     public TBLClassicUnit createTaboolaFeed(Context context, TBLClassicPage tblClassicPage) {
