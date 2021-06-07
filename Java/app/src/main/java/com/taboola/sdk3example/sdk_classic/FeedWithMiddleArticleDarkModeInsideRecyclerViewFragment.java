@@ -43,6 +43,7 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         TBLClassicPage tblClassicPage =
                 Taboola.getClassicPage("https://blog.taboola.com", "article");
 
@@ -63,7 +64,7 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
     }
 
     public TBLClassicUnit createTaboolaWidget(TBLClassicPage tblClassicPage) {
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-1x2", TBL_PLACEMENT_TYPE.PAGE_MIDDLE, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
@@ -103,10 +104,6 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
         HashMap<String, String> extraProperties = new HashMap<>();
         extraProperties.put("darkMode", "true"); // Adding Dark Mode Support
         tblClassicUnit.setUnitExtraProperties(extraProperties);
-
-        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-        tblClassicUnit.setTargetType("mix");
         tblClassicUnit.fetchContent();
         return tblClassicUnit;
     }
@@ -129,10 +126,6 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
         extraProperties.put("darkMode", "true"); // Adding Dark Mode Support
         tblClassicUnit.setUnitExtraProperties(extraProperties);
 
-        int height = TBLSdkDetailsHelper.getDisplayHeight(context) * 2;
-        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-        tblClassicUnit.setTargetType("mix");
-        tblClassicUnit.setInterceptScroll(true);
         tblClassicUnit.fetchContent();
         return tblClassicUnit;
     }
