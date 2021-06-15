@@ -67,10 +67,8 @@ public class FeedWithMiddleArticleInsideScrollViewFragment extends Fragment  {
 
     private void configureBelowArticleWidget(TBLClassicUnit tblClassicUnit, TBLClassicPage tblClassicPage) {
         tblClassicUnit.setTargetType("mix");
-        tblClassicUnit.setInterceptScroll(true);
 
-        tblClassicUnit.getLayoutParams().height = TBLSdkDetailsHelper.getDisplayHeight( tblClassicUnit.getContext()) * 2;
-        HashMap<String, String> extraProperties = new HashMap<>();
+         HashMap<String, String> extraProperties = new HashMap<>();
         extraProperties.put("useOnlineTemplate", "true");
         extraProperties.put("detailedErrorCodes", "true");
         TBLClassicListener tblClassicListener = new TBLClassicListener() {

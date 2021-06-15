@@ -49,8 +49,7 @@ public class FeedInsideScrollViewFragment extends BaseTaboolaFragment {
     private void buildBelowArticleWidget(Context context) {
 
         tblClassicUnit
-                .setTargetType("mix")
-                .setInterceptScroll(true);
+                .setTargetType("mix");
 
         //optional
         if (!TextUtils.isEmpty(getViewId)) {

@@ -89,10 +89,6 @@ public class FeedWithMiddleArticleInsideListViewFragment extends Fragment {
                 Log.d(TAG,"onAdReceiveSuccess");
             }
         });
-        int height = TBLSdkDetailsHelper.getDisplayHeight(context) * 2;
-        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-        tblClassicUnit.setTargetType("mix");
-        tblClassicUnit.setInterceptScroll(true);
         tblClassicUnit.fetchContent();
         return tblClassicUnit;
     }
