@@ -77,8 +77,6 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
                 Log.d(TAG,"onAdReceiveSuccess");
             }
         });
-        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        tblClassicUnit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
 
         tblClassicUnit.setTargetType("mix");
         tblClassicUnit.fetchContent();
