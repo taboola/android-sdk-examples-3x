@@ -66,7 +66,7 @@ public class FeedWithMiddleArticleInsideRecyclerViewFragment extends Fragment  {
 
 
     public TBLClassicUnit createTaboolaWidget(TBLClassicPage tblClassicPage) {
-        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.FEED, new TBLClassicListener() {
+        TBLClassicUnit tblClassicUnit = tblClassicPage.build(getContext(),"Mid Article", "alternating-widget-without-video-1x1", TBL_PLACEMENT_TYPE.PAGE_MIDDLE, new TBLClassicListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
