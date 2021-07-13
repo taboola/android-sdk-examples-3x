@@ -21,7 +21,7 @@
         <activity android:name="com.taboola.sdk3example.sdk_web.SDKWeb" />
         <activity android:name="com.taboola.sdk3example.sdk_web.SDKWebSplitFeed" />
         <activity android:name="com.taboola.sdk3example.SDKClassicMenu" />
-        <activity android:name="com.taboola.sdk3example.sdk_native.SdkNativeMain" />
+        <activity android:name="com.taboola.sdk3example.sdk_native.SDKNativeMenu" />
         <activity
             android:name="com.taboola.sdk3example.SplashScreen"
             android:theme="@style/SplashScreen">

@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.taboola.sdk3example.sdk_native.SdkNativeMain;
+import com.taboola.sdk3example.sdk_native.SDKNativeMenu;
 import com.taboola.sdk3example.sdk_web.SDKWebMenu;
 
 public class TaboolaSDKType extends AppCompatActivity implements View.OnClickListener {
@@ -39,7 +39,7 @@ public class TaboolaSDKType extends AppCompatActivity implements View.OnClickLis
                     targetActivityClass= SDKWebMenu.class;
                 break;
               case R.id.sdk_native:
-              targetActivityClass= SdkNativeMain.class;
+              targetActivityClass= SDKNativeMenu.class;
                 break;
             default:
                 return;
