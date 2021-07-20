@@ -1,6 +1,7 @@
 package com.taboola.sdk3example.sdk_native;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.taboola.sdk3example.R;
 import java.util.ArrayList;
 
 public class NativeFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG = NativeFeedAdapter.class.getSimpleName();
 
     private ArrayList<Object> mData;
 
@@ -35,12 +37,25 @@ public class NativeFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (mData == null) {
+            Log.d(TAG, "Unable to bind data, data is null");
             return;
         }
 
         TBLRecommendationItem item = (TBLRecommendationItem) mData.get(position);
-        ViewGroup adContainer = ((TaboolaItemViewHolder) holder).mAdContainer;
-        Context context = adContainer.getContext();
+        if (item != null) {
+            ViewGroup adContainer = ((TaboolaItemViewHolder) holder).mAdContainer;
+            Context context = adContainer.getContext();
+            addTaboolaViewComponentsToContainer(item, adContainer, context);
+        } else {
+            Log.d(TAG,"Data item is null, unable to bind");
+        }
+    }
+
+    private void addTaboolaViewComponentsToContainer(TBLRecommendationItem item, ViewGroup adContainer, Context context) {
+        // Every TBLRecommendationItem contains components such TBLImageView and TBLTextView for you to add to your container.
+        // Each component extends from native Android such ImageView or TextView so all native functionality available
+        // Those components are thumbnail, title, branding, description.
+        // You can decide how to place every element and order in you container
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         TBLImageView thumbnailView = item.getThumbnailView(context);
         TBLTextView titleView = item.getTitleView(context);
@@ -69,6 +84,7 @@ public class NativeFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewRecycled(holder);
         if (holder instanceof TaboolaItemViewHolder) {
+            //This is how we separate items that should contain Taboola
             ((TaboolaItemViewHolder) holder).mAdContainer.removeAllViews();
         }
     }

@@ -82,6 +82,9 @@ These will help you remember what the consumer really wants to engage with and w
 
 
     <string name="toolbar_title">Taboola SDK 3.0</string>
+    <string name="toolbar_title_classic">Taboola SDK Classic</string>
+    <string name="toolbar_title_web">Taboola SDK Web</string>
+    <string name="toolbar_title_native">Taboola SDK Native</string>
     <string name="sdk_via_native">SDK VIA NATIVE</string>
     <string name="std_mid_article_with_feed_lnr">Widget + Feed (ScrollView)</string>
     <string name="std_mid_article_preload">Widget Preload</string>

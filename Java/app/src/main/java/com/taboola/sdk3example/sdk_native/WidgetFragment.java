@@ -2,6 +2,7 @@ package com.taboola.sdk3example.sdk_native;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.taboola.android.TBLPublisherInfo;
 import com.taboola.android.Taboola;
 import com.taboola.android.listeners.TBLNativeListener;
 import com.taboola.android.tblnative.TBLImageView;
@@ -25,9 +27,8 @@ import com.taboola.android.tblnative.TBLRequestData;
 import com.taboola.android.tblnative.TBLTextView;
 import com.taboola.sdk3example.R;
 
-import static java.sql.DriverManager.println;
-
 public class WidgetFragment extends Fragment {
+    private static final String TAG = WidgetFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -45,14 +46,14 @@ public class WidgetFragment extends Fragment {
             nativeUnit.fetchRecommendations(requestData, new TBLRecommendationRequestCallback() {
                 @Override
                 public void onRecommendationsFetched(TBLRecommendationsResponse tblRecommendationsResponse) {
-                    println("Taboola | fetchInitialContent | onRecommendationsFetched");
+                    Log.d(TAG, "Taboola | fetchInitialContent | onRecommendationsFetched");
                     // Add response content to layout
                     displayContent(contentLayout, tblRecommendationsResponse);
                 }
 
                 @Override
                 public void onRecommendationsFailed(Throwable throwable) {
-                    println(String.format("Taboola | onRecommendationsFailed: %s", throwable.getLocalizedMessage()));
+                    Log.d(TAG, String.format("Taboola | onRecommendationsFailed: %s", throwable.getLocalizedMessage()));
                 }
             });
         }
@@ -68,10 +69,14 @@ public class WidgetFragment extends Fragment {
         // Define a page to control all Unit placements on this screen
         TBLNativePage nativePage = Taboola.getNativePage("text", "https://blog.taboola.com");
 
-        return nativePage.build("list_item", new TBLNativeListener() {
+        // Define a publisher info with publisher name and api key
+        TBLPublisherInfo tblPublisherInfo = new TBLPublisherInfo("sdk-tester-demo").setApiKey("30dfcf6b094361ccc367bbbef5973bdaa24dbcd6");
+
+        // Define a single Unit to display
+        return nativePage.build("list_item", tblPublisherInfo, new TBLNativeListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
-                println(String.format("Taboola | onItemClick | isOrganic = %s", isOrganic));
+                Log.d(TAG, String.format("Taboola | onItemClick | isOrganic = %s", isOrganic));
                 return super.onItemClick(placementName, itemId, clickUrl, isOrganic, customData);
             }
         });
@@ -83,7 +88,7 @@ public class WidgetFragment extends Fragment {
      */
     private void displayContent(LinearLayout contentLayout, TBLRecommendationsResponse tblRecommendationsResponse) {
         if (tblRecommendationsResponse == null || tblRecommendationsResponse.getPlacementsMap() == null) {
-            println("Error: No recommendations returned from server.");
+            Log.d(TAG, "Error: No recommendations returned from server.");
             return;
         }
         TBLPlacement placement = tblRecommendationsResponse.getPlacementsMap().values().iterator().next();
