@@ -38,12 +38,8 @@ public class WidgetFragment extends Fragment {
 
         // Create and return a Taboola Unit
         TBLNativeUnit nativeUnit = getTaboolaUnit();
-
-        // Fetch content for Unit
-        // Note that by passing setRecCount 4 we are asking Taboola to return 4 items
-        TBLRequestData requestData = new TBLRequestData().setRecCount(4);
         if (nativeUnit != null) {
-            nativeUnit.fetchRecommendations(requestData, new TBLRecommendationRequestCallback() {
+            nativeUnit.fetchRecommendations(new TBLRecommendationRequestCallback() {
                 @Override
                 public void onRecommendationsFetched(TBLRecommendationsResponse tblRecommendationsResponse) {
                     Log.d(TAG, "Taboola | fetchInitialContent | onRecommendationsFetched");
@@ -72,8 +68,12 @@ public class WidgetFragment extends Fragment {
         // Define a publisher info with publisher name and api key
         TBLPublisherInfo tblPublisherInfo = new TBLPublisherInfo("sdk-tester-demo").setApiKey("30dfcf6b094361ccc367bbbef5973bdaa24dbcd6");
 
-        // Define a single Unit to display
-        return nativePage.build("list_item", tblPublisherInfo, new TBLNativeListener() {
+        // Fetch content for Unit
+        // Note that by passing setRecCount 4 we are asking Taboola to return 4 items
+        TBLRequestData requestData = new TBLRequestData().setRecCount(4);
+
+        // Define a Units to display
+        return nativePage.build("list_item", tblPublisherInfo, requestData, new TBLNativeListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 Log.d(TAG, String.format("Taboola | onItemClick | isOrganic = %s", isOrganic));

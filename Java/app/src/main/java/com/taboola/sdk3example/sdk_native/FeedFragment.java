@@ -50,7 +50,7 @@ public class FeedFragment extends Fragment {
         getTaboolaUnit();
 
         // Fetch content for Unit
-        fetchInitialContent();
+        fetchRecommendations();
 
         return root;
     }
@@ -68,7 +68,7 @@ public class FeedFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
                 // Fetching more content if we got to the end of the scrolling. if recycler can't scroll sown any more and the state is IDLE try to load next recommendations
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    loadNextRecommendationsBatch();
+                    fetchRecommendations();
                 }
             }
         });
@@ -77,41 +77,16 @@ public class FeedFragment extends Fragment {
     }
 
     /**
-     * Taboola "Native Integration" currently differentiates between first and subsequent content fetch calls.
-     * This method fetches the initial few items for this Feed implementation.
+     * Taboola "Native Integration" fetchRecommendations call handle first and subsequent content fetch calls.
+     * This method fetches items for this Feed implementation.
      */
-    private void fetchInitialContent() {
-        // Define a fetch request (with desired number of content items in setRecCount())
-        TBLRequestData requestData = new TBLRequestData().setRecCount(4);
+    private void fetchRecommendations() {
         if (mNativeUnit != null) {
-            mNativeUnit.fetchRecommendations(requestData, new TBLRecommendationRequestCallback() {
+            mNativeUnit.fetchRecommendations(new TBLRecommendationRequestCallback() {
                 @Override
                 public void onRecommendationsFetched(TBLRecommendationsResponse tblRecommendationsResponse) {
                     Log.d(TAG, "Taboola | fetchInitialContent | onRecommendationsFetched");
                     // Send content to RecyclerView Adapter
-                    addRecommendationToFeed(tblRecommendationsResponse);
-                }
-
-                @Override
-                public void onRecommendationsFailed(Throwable throwable) {
-                    Log.d(TAG, String.format("Taboola | onRecommendationsFailed: %s", throwable.getLocalizedMessage()));
-                }
-            });
-        } else {
-            Log.d(TAG, "Taboola | mNativeUnit is null");
-        }
-    }
-
-    /**
-     * Taboola "Native Integration" currently differentiates between first and subsequent content fetch calls.
-     * This method fetches additional items for this Feed implementation.
-     */
-    private void loadNextRecommendationsBatch() {
-        if (mNativeUnit != null) {
-            mNativeUnit.getNextRecommendationsBatch(null, new TBLRecommendationRequestCallback() {
-                @Override
-                public void onRecommendationsFetched(TBLRecommendationsResponse tblRecommendationsResponse) {
-                    Log.d(TAG, "Taboola | loadNextRecommendationsBatch | onRecommendationsFetched");
                     addRecommendationToFeed(tblRecommendationsResponse);
                 }
 
@@ -158,8 +133,11 @@ public class FeedFragment extends Fragment {
         // Define a publisher info with publisher name and api key
         TBLPublisherInfo tblPublisherInfo = new TBLPublisherInfo("sdk-tester-demo").setApiKey("30dfcf6b094361ccc367bbbef5973bdaa24dbcd6");
 
+        // Define a fetch request (with desired number of content items in setRecCount())
+        TBLRequestData requestData = new TBLRequestData().setRecCount(4);
+
         // Define a single Unit to display
-        mNativeUnit = nativePage.build("list_item", tblPublisherInfo, new TBLNativeListener() {
+        mNativeUnit = nativePage.build("list_item", tblPublisherInfo, requestData, new TBLNativeListener() {
             @Override
             public boolean onItemClick(String placementName, String itemId, String clickUrl, boolean isOrganic, String customData) {
                 Log.d(TAG, String.format("Taboola | onItemClick | isOrganic = %s", isOrganic));
