@@ -17,11 +17,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name="com.taboola.sdk3example.sdk_web.WebPagerviajs"></activity>
-        <activity android:name="com.taboola.sdk3example.sdk_web.SDKWebMenu" />
+        <activity android:name="com.taboola.sdk3example.sdk_web.SDKWebMenuActivity" />
         <activity android:name="com.taboola.sdk3example.sdk_web.SDKWeb" />
         <activity android:name="com.taboola.sdk3example.sdk_web.SDKWebSplitFeed" />
-        <activity android:name="com.taboola.sdk3example.SDKClassicMenu" />
-        <activity android:name="com.taboola.sdk3example.sdk_native.SdkNativeMain" />
+        <activity android:name="com.taboola.sdk3example.SDKClassicMenuActivity" />
+        <activity android:name="com.taboola.sdk3example.sdk_native.SDKNativeMenuActivity" />
         <activity
             android:name="com.taboola.sdk3example.SplashScreen"
             android:theme="@style/SplashScreen">
