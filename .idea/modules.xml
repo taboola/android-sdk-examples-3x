@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SampleCode3x.iml" filepath="$PROJECT_DIR$/SampleCode3x.iml" />
-      <module fileurl="file://$PROJECT_DIR$/taboolasamples/taboolasamples.iml" filepath="$PROJECT_DIR$/taboolasamples/taboolasamples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-sdk-examples-3x.iml" filepath="$PROJECT_DIR$/.idea/modules/android-sdk-examples-3x.iml" />
     </modules>
   </component>
 </project>
