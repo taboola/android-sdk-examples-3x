@@ -69,7 +69,7 @@ fun ListListScopeSample(tblClassicUnit: TBLClassicUnit){
             Text(text = stringResource(id = R.string.lorem_ipsum_long) )
         }
 
-        // Add another single item
+        // Add another single item (Taboola Feed)
         item(){
             classicIntegration(tblClassicUnit = tblClassicUnit)
         }

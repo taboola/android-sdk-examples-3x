@@ -23,7 +23,7 @@ class ClassicComposeWidget : Fragment() {
      * Define a Page that represents this screen, get a Unit from it, add it to screen and fetch its content
      * Notice: A Unit of unlimited items, called "Feed" in Taboola, can be set in TBL_PLACEMENT_TYPE.PAGE_BOTTOM only.
      */
-    fun createTaboolaWidget(context: Context?): TBLClassicUnit? {
+    fun createTaboolaWidget(context: Context?): TBLClassicUnit {
 
         //Create TBLClassicPage
         val tblClassicPage = Taboola.getClassicPage("https://blog.taboola.com", "article")
@@ -52,14 +52,12 @@ class ClassicComposeWidget : Fragment() {
         savedInstanceState: Bundle?
     ): View? = ComposeView(requireContext()).apply {
         setContent {
-            val tblClassicUnit: TBLClassicUnit? = createTaboolaWidget(context)
-            if (tblClassicUnit != null) {
+            val tblClassicUnit: TBLClassicUnit = createTaboolaWidget(context)
                 //Add TBLClassicUnit to the UI (to layout)
                 classicIntegration(tblClassicUnit =  tblClassicUnit)
 
                 // Fetch content for Unit
                 tblClassicUnit.fetchContent()
-            }
         }
     }
 }
