@@ -31,6 +31,19 @@
         tools:layout="@layout/fragment_classic_viewpager" />
 
     <fragment
+        android:id="@+id/nav_classic_compose_feed"
+        android:name="com.taboola.kotlin.examples.screens.classic.ClassicComposeWidget"
+        android:label="@string/nav_classic_compose_feed"
+         />
+
+    <fragment
+        android:id="@+id/nav_classic_compose_feed_recyclerView"
+        android:name="com.taboola.kotlin.examples.screens.classic.ClassicComposeFeed"
+        android:label="@string/nav_classic_compose_feed_lazycolumn"
+        />
+
+
+    <fragment
         android:id="@+id/nav_web_widget"
         android:name="com.taboola.kotlin.examples.screens.web.WidgetFragment"
         android:label="@string/web_widget"

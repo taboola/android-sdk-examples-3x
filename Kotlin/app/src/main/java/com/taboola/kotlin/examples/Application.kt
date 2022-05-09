@@ -15,5 +15,4 @@ class ExampleApplication : Application() {
         // Initialize Taboola SDK as early as possible
         Taboola.init(publisherInfo)
     }
-
 }
