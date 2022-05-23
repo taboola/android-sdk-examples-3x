@@ -44,7 +44,12 @@ class ClassicComposeFeed : Fragment() {
         val classicPage: TBLClassicPage = Taboola.getClassicPage(properties.pageUrl, properties.pageType)
 
         // Define a single Unit to display
-        val classicUnit: TBLClassicUnit = classicPage.build(context, properties.placementName, properties.mode, TBL_PLACEMENT_TYPE.PAGE_BOTTOM, object: TBLClassicListener(){
+        val classicUnit: TBLClassicUnit = classicPage.build(
+            context,
+            properties.placementName,
+            properties.mode,
+            TBL_PLACEMENT_TYPE.FEED,
+            object: TBLClassicListener(){
             override fun onAdReceiveSuccess() {
                 super.onAdReceiveSuccess()
                 println("Taboola | onAdReceiveSuccess")
