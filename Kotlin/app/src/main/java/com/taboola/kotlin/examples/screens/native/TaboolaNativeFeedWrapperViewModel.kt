@@ -79,7 +79,6 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
                                 UIDataModel(
                                     recommendation.getThumbnailView(context),
                                     recommendation.getTitleView(context),
-                                    recommendation.getDescriptionView(context)
                                 )
                             )
                         } catch (exception: IllegalStateException) {
@@ -101,5 +100,4 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
  data class UIDataModel(
     var image: TBLImageView?,
     var title: TBLTextView?,
-    var content: TBLTextView?
 )
