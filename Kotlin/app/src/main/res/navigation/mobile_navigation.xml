@@ -78,4 +78,16 @@
         android:name="com.taboola.kotlin.examples.screens.native.FeedFragment"
         android:label="@string/native_feed"
         tools:layout="@layout/fragment_native_feed" />
+
+    <fragment
+        android:id="@+id/nav_native_widget_compose"
+        android:name="com.taboola.kotlin.examples.screens.native.NativeComposeWidgetFragment"
+        android:label="@string/native_widget_compose"
+        />
+
+    <fragment
+        android:id="@+id/nav_native_feed_compose"
+        android:name="com.taboola.kotlin.examples.screens.native.NativeComposeFeedFragment"
+        android:label="@string/native_feed_compose"
+        />
 </navigation>
