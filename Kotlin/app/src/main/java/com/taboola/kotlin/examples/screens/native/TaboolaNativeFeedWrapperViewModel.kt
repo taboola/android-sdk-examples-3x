@@ -12,10 +12,10 @@ import com.taboola.kotlin.examples.PublisherInfo
 
 class TaboolaNativeFeedWrapperViewModel : ViewModel() {
     private val tblNativeUnit: TBLNativeUnit
-    private var articles = mutableStateListOf<UIDataModel>()
+    private var articles = mutableStateListOf<Article>()
     private var placementProperties = PlacementInfo.widgetProperties()
 
-    fun getArticles(): List<UIDataModel> = articles
+    fun getArticles(): List<Article> = articles
 
     init {
         tblNativeUnit = getTaboolaUnit(placementProperties)
@@ -67,7 +67,7 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
                     println("Error: No recommendations returned from server.")
                     return
                 }
-                val recommendations = ArrayList<UIDataModel>()
+                val recommendations = ArrayList<Article>()
                 recommendationsResponse.placementsMap[placementProperties.placementName]?.items?.forEach { recommendation ->
 
                     if (recommendation == null) {
@@ -76,7 +76,7 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
                         try {
                             // Extract Taboola Views from item
                             recommendations.add(
-                                UIDataModel(
+                                Article(
                                     recommendation.getThumbnailView(context),
                                     recommendation.getTitleView(context),
                                 )
@@ -97,7 +97,7 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
     }
 }
 
- data class UIDataModel(
+ data class Article(
     var image: TBLImageView?,
     var title: TBLTextView?,
 )
