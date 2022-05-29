@@ -13,7 +13,7 @@ import com.taboola.kotlin.examples.PublisherInfo
 class TaboolaNativeFeedWrapperViewModel : ViewModel() {
     private val tblNativeUnit: TBLNativeUnit
     private var articles = mutableStateListOf<Article>()
-    private var placementProperties = PlacementInfo.widgetProperties()
+    private var placementProperties = PlacementInfo.nativeFeedProperties()
 
     fun getArticles(): List<Article> = articles
 
@@ -68,22 +68,24 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
                     return
                 }
                 val recommendations = ArrayList<Article>()
-                recommendationsResponse.placementsMap[placementProperties.placementName]?.items?.forEach { recommendation ->
+                val placement = recommendationsResponse.placementsMap?.values?.iterator()?.next()
 
-                    if (recommendation == null) {
-                        println("Error: No such recommendation returned from server.")
-                    } else {
-                        try {
-                            // Extract Taboola Views from item
+                if (placement == null) {
+                    println("Error: No such placement returned from server.")
+                } else {
+                    try {
+                        placement.items.forEach { recommendation ->
                             recommendations.add(
                                 Article(
                                     recommendation.getThumbnailView(context),
                                     recommendation.getTitleView(context),
                                 )
                             )
-                        } catch (exception: IllegalStateException) {
-                            println("Fragment Context no longer valid, not rendering Taboola UI.")
                         }
+                        // Extract Taboola Views from item
+
+                    } catch (exception: IllegalStateException) {
+                        println("Fragment Context no longer valid, not rendering Taboola UI.")
                     }
                 }
 
@@ -97,7 +99,7 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
     }
 }
 
- data class Article(
+data class Article(
     var image: TBLImageView?,
     var title: TBLTextView?,
 )
