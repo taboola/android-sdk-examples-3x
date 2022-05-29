@@ -74,6 +74,7 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
                     println("Error: No such placement returned from server.")
                 } else {
                     try {
+                        // Extract Taboola Views from item
                         placement.items.forEach { recommendation ->
                             recommendations.add(
                                 Article(
@@ -82,7 +83,6 @@ class TaboolaNativeFeedWrapperViewModel : ViewModel() {
                                 )
                             )
                         }
-                        // Extract Taboola Views from item
 
                     } catch (exception: IllegalStateException) {
                         println("Fragment Context no longer valid, not rendering Taboola UI.")
