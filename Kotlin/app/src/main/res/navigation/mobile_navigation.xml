@@ -56,6 +56,18 @@
         tools:layout="@layout/fragment_web" />
 
     <fragment
+        android:id="@+id/nav_web_compose_widget"
+        android:name="com.taboola.kotlin.examples.screens.web.WebComposeFragment"
+        android:label="@string/web_compose_widget"
+        />
+
+    <fragment
+        android:id="@+id/nav_web_compose_feed"
+        android:name="com.taboola.kotlin.examples.screens.web.WebComposeFeedFragment"
+        android:label="@string/web_compose_feed"
+        />
+
+    <fragment
         android:id="@+id/nav_native_widget"
         android:name="com.taboola.kotlin.examples.screens.native.WidgetFragment"
         android:label="@string/native_widget"

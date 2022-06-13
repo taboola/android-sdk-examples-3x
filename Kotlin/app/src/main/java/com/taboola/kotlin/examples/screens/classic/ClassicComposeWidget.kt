@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
 import com.taboola.android.TBLClassicUnit
-import com.taboola.android.TBLPublisherInfo
 import com.taboola.android.Taboola
 import com.taboola.android.annotations.TBL_PLACEMENT_TYPE
 import com.taboola.android.listeners.TBLClassicListener
@@ -51,13 +49,14 @@ class ClassicComposeWidget : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = ComposeView(requireContext()).apply {
+        val tblClassicUnit: TBLClassicUnit = createTaboolaWidget(context)
+
+        // Fetch content for Unit
+        tblClassicUnit.fetchContent()
+
         setContent {
-            val tblClassicUnit: TBLClassicUnit = createTaboolaWidget(context)
                 //Add TBLClassicUnit to the UI (to layout)
                 classicIntegration(tblClassicUnit =  tblClassicUnit)
-
-                // Fetch content for Unit
-                tblClassicUnit.fetchContent()
         }
     }
 }
