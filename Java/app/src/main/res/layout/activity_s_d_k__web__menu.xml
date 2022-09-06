@@ -91,5 +91,23 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="15dp" />
 
+    <Button
+        android:id="@+id/continuousScroll"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/button_border"
+        android:text="Continuous Scroll"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:fontFamily="sans-serif"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splitfeed"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="15dp" />
+
 
 </LinearLayout>

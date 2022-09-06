@@ -19,6 +19,7 @@
     <string name="web_compose_widget">Web Widget - Compose</string>
     <string name="web_compose_feed">Web Feed - Compose</string>
     <string name="web_feed">Web Feed</string>
+    <string name="web_continuous_scroll">Web Continuous Scroll</string>
     <string name="native_widget">Native Widget</string>
     <string name="native_feed">Native Feed</string>
     <string name="native_widget_compose">Native widget Compose</string>

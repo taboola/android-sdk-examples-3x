@@ -35,9 +35,11 @@ public class SDKWebMenuActivity extends AppCompatActivity implements OnClickList
         Button widgetFeed = findViewById(R.id.widgetFeed);
         Button splitfeed = findViewById(R.id.splitfeed);
         Button viewPager = findViewById(R.id.viewPager);
+        Button continuousScroll = findViewById(R.id.continuousScroll);
         widgetFeed.setOnClickListener(this);
         splitfeed.setOnClickListener(this);
         viewPager.setOnClickListener(this);
+        continuousScroll.setOnClickListener(this);
     }
 
     @Override
@@ -53,6 +55,9 @@ public class SDKWebMenuActivity extends AppCompatActivity implements OnClickList
             case R.id.viewPager:
                 targetActivityClass = WebPagerviajs.class;
                 break;
+            case R.id.continuousScroll:
+                 targetActivityClass = SDKWebContinuousScroll.class;
+                 break;
             default:
                 return;
         }

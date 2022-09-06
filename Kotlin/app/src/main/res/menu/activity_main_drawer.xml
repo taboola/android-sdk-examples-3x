@@ -35,6 +35,10 @@
             android:id="@+id/nav_web_compose_feed"
             android:title="@string/web_compose_feed" />
         <item
+            android:id="@+id/nav_web_continuous_scroll"
+            android:title="@string/web_continuous_scroll"
+            />
+        <item
             android:id="@+id/nav_native_widget"
             android:title="@string/native_widget" />
         <item

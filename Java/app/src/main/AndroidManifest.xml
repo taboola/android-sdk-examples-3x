@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.taboola.sdk3example.sdk_web.WebPagerviajs"></activity>
+        <activity android:name="com.taboola.sdk3example.sdk_web.SDKWebContinuousScroll" />
+        <activity android:name="com.taboola.sdk3example.sdk_web.WebPagerviajs" />
         <activity android:name="com.taboola.sdk3example.sdk_web.SDKWebMenuActivity" />
         <activity android:name="com.taboola.sdk3example.sdk_web.SDKWeb" />
         <activity android:name="com.taboola.sdk3example.sdk_web.SDKWebSplitFeed" />
