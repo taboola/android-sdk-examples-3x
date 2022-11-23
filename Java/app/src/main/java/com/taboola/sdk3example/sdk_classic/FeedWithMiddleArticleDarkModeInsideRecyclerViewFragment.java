@@ -1,6 +1,7 @@
 package com.taboola.sdk3example.sdk_classic;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
 
     private static TBLClassicUnit tblClassicUnitMiddle;
     private static TBLClassicUnit tblClassicUnitBottom;
+    private HashMap<String, String> extraProperties = new HashMap<>();
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,8 +50,12 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
         TBLClassicPage tblClassicPage =
                 Taboola.getClassicPage("https://blog.taboola.com", "article");
 
+        //set dark mode according to the device theme setting
+        setDarkModeFlag();
+
         tblClassicUnitMiddle = createTaboolaWidget(tblClassicPage);
         tblClassicUnitBottom = createTaboolaFeed(inflater.getContext(), tblClassicPage);
+
 
         return inflater.inflate(R.layout.fragment_rv_sample, container, false);
     }
@@ -101,8 +108,6 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
             }
         });
 
-        HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("darkMode", "true"); // Adding Dark Mode Support
         tblClassicUnit.setUnitExtraProperties(extraProperties);
         tblClassicUnit.fetchContent();
         return tblClassicUnit;
@@ -122,8 +127,6 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
             }
         });
 
-        HashMap<String, String> extraProperties = new HashMap<>();
-        extraProperties.put("darkMode", "true"); // Adding Dark Mode Support
         tblClassicUnit.setUnitExtraProperties(extraProperties);
 
         tblClassicUnit.fetchContent();
@@ -221,4 +224,20 @@ public class FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment extends Fra
         }
     }
 
+    private void setDarkModeFlag() {
+        int nightModeFlags =
+                getContext().getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                // Device dark mode on
+                extraProperties.put("darkMode", "true");
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                // Device dark mode off
+                break;
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                break;
+        }
+    }
 }
