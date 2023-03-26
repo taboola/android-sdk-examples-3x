@@ -32,7 +32,7 @@ class WebComposeFragment : Fragment() {
  * This method adds WebView using Compose and integrate with Taboola SDK (Web Integration)
  */
 @Composable
-fun CustomerWebView(placementInfo: PlacementInfo.Properties) {
+fun CustomerWebView(placementInfo: PlacementInfo.WidgetProperties) {
 
     //This is the publisher code which displays a WebView on the screen
     AndroidView(factory = { context ->
@@ -46,7 +46,7 @@ fun CustomerWebView(placementInfo: PlacementInfo.Properties) {
             //Inside the WebView apply scope we will add Taboola code to use web integration
             val taboolaWebWrapperViewModel = TaboolaWebWrapperViewModel()
             taboolaWebWrapperViewModel.setupWebViewForTaboola(this)
-            taboolaWebWrapperViewModel.loadWebViewContent(this,placementInfo,context)
+            taboolaWebWrapperViewModel.loadWebViewContentWidget(this,placementInfo,context)
         }
     })
 }

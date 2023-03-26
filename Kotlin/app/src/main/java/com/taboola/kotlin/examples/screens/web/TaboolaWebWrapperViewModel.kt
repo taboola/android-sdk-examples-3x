@@ -32,7 +32,26 @@ class TaboolaWebWrapperViewModel: ViewModel() {
      * This method is just a quick way to load an example page simulating customer layout.
      * Inside the asset file there are Javascript tags Taboola targets with its content.
      */
-    fun loadWebViewContent(webView: WebView, properties: PlacementInfo.Properties, context: Context) {
+    fun loadWebViewContentWidget(webView: WebView, properties: PlacementInfo.WidgetProperties, context: Context) {
+        val BASE_URL = "https://example.com"
+        val HTML_CONTENT_FILE_TITLE = "sampleContentPage.html"
+        var htmlContent: String? = null
+        try {
+            htmlContent = AssetUtil.getHtmlTemplateFileContent(context, HTML_CONTENT_FILE_TITLE)
+            htmlContent = htmlContent.replace("<PLACEMENT>", properties.placementName)
+            htmlContent = htmlContent.replace("<MODE>", properties.mode)
+            webView.loadDataWithBaseURL(BASE_URL, htmlContent, "text/html", "UTF-8", "")
+        } catch (e: Exception) {
+            println("Failed to read asset file: ${e.localizedMessage}")
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * This method is just a quick way to load an example page simulating customer layout.
+     * Inside the asset file there are Javascript tags Taboola targets with its content.
+     */
+    fun loadWebViewContentFeed(webView: WebView, properties: PlacementInfo.WebFeedProperties, context: Context) {
         val BASE_URL = "https://example.com"
         val HTML_CONTENT_FILE_TITLE = "sampleContentPage.html"
         var htmlContent: String? = null

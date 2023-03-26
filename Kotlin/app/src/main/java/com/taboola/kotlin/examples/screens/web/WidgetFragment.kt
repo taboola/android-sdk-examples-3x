@@ -53,7 +53,7 @@ class WidgetFragment : Fragment() {
      * This method is just a quick way to load an example page simulating customer layout.
      * Inside the asset file there are Javascript tags Taboola targets with its content.
      */
-    private fun loadWebViewContent(webView: WebView, properties: PlacementInfo.Properties) {
+    private fun loadWebViewContent(webView: WebView, properties: PlacementInfo.WidgetProperties) {
         var htmlContent: String? = null
         try {
             htmlContent = AssetUtil.getHtmlTemplateFileContent(context, HTML_CONTENT_FILE_TITLE)

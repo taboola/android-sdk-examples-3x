@@ -28,7 +28,7 @@ class TaboolaNativeWidgetWrapperViewModel : ViewModel() {
     /**
      * Define a Page that represents this screen, get a Unit from it, add it to screen and fetch its content
      */
-    private fun getTaboolaUnit(properties: PlacementInfo.Properties): TBLNativeUnit {
+    private fun getTaboolaUnit(properties: PlacementInfo.WidgetProperties): TBLNativeUnit {
         // Define a page to control all Unit placements on this screen
         val nativePage: TBLNativePage =
             Taboola.getNativePage(properties.sourceType, properties.pageUrl)

@@ -27,7 +27,7 @@ class ClassicComposeWidget : Fragment() {
         val tblClassicPage = Taboola.getClassicPage("https://blog.taboola.com", "article")
 
         //Choose widget properties (placementName, Mode, pageUrl..etc)
-        val properties: PlacementInfo.Properties = PlacementInfo.widgetProperties()
+        val properties: PlacementInfo.WidgetProperties = PlacementInfo.widgetProperties()
 
         //Define a single Unit to display
         val tblClassicUnit: TBLClassicUnit = tblClassicPage.build(context, properties.placementName , properties.mode, TBL_PLACEMENT_TYPE.PAGE_BOTTOM, object: TBLClassicListener(){

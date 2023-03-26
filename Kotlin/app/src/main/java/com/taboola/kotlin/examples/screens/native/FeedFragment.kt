@@ -103,7 +103,7 @@ class FeedFragment : Fragment() {
      * Define a Page that represents this screen, get a Unit from it, add it to screen and fetch its content
      * Notice: A Unit of unlimited items, called "Feed" in Taboola, can be set in TBL_PLACEMENT_TYPE.PAGE_BOTTOM only.
      */
-    private fun getTaboolaUnit(properties: PlacementInfo.Properties) {
+    private fun getTaboolaUnit(properties: PlacementInfo.NativeFeedProperties) {
         // Define a page to control all Unit placements on this screen
         val nativePage: TBLNativePage =
             Taboola.getNativePage(properties.sourceType, properties.pageUrl)
