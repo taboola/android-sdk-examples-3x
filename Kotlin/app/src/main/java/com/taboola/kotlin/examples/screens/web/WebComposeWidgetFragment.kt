@@ -15,6 +15,11 @@ import com.taboola.kotlin.examples.PlacementInfo
  * This is an example for 1 webView and 1 page, if you have another case, then please contact Taboola support team.
  */
 class WebComposeFragment : Fragment() {
+
+    //Create taboolaWebWrapperViewModel instance
+    //Inside the WebView apply scope we will add Taboola code to use web integration
+    val taboolaWebWrapperViewModel = TaboolaWebWrapperViewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,7 +28,7 @@ class WebComposeFragment : Fragment() {
         setContent {
 
             // Create and return a Taboola Unit
-            CustomerWebView(PlacementInfo.widgetProperties())
+            CustomerWebView(PlacementInfo.widgetProperties(), taboolaWebWrapperViewModel)
         }
     }
 }
@@ -32,7 +37,10 @@ class WebComposeFragment : Fragment() {
  * This method adds WebView using Compose and integrate with Taboola SDK (Web Integration)
  */
 @Composable
-fun CustomerWebView(placementInfo: PlacementInfo.WidgetProperties) {
+fun CustomerWebView(
+    placementInfo: PlacementInfo.WidgetProperties,
+    taboolaWebWrapperViewModel: TaboolaWebWrapperViewModel
+) {
 
     //This is the publisher code which displays a WebView on the screen
     AndroidView(factory = { context ->
@@ -42,11 +50,9 @@ fun CustomerWebView(placementInfo: PlacementInfo.WidgetProperties) {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
 
-            //Create taboolaWebWrapperViewModel instance
-            //Inside the WebView apply scope we will add Taboola code to use web integration
-            val taboolaWebWrapperViewModel = TaboolaWebWrapperViewModel()
+
             taboolaWebWrapperViewModel.setupWebViewForTaboola(this)
-            taboolaWebWrapperViewModel.loadWebViewContentWidget(this,placementInfo,context)
+            taboolaWebWrapperViewModel.loadWebViewContentWidget(this, placementInfo, context)
         }
     })
 }
