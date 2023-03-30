@@ -9,6 +9,9 @@ import com.taboola.android.listeners.TBLWebListener
 import com.taboola.android.tblweb.TBLWebUnit
 import com.taboola.kotlin.examples.PlacementInfo
 
+private const val PLACEMENT_PLACE_HOLDER = "<PLACEMENT>"
+private const val MODE_PLACE_HOLDER = "<MODE>"
+
 class TaboolaWebWrapperViewModel : ViewModel() {
 
     /**
@@ -48,8 +51,8 @@ class TaboolaWebWrapperViewModel : ViewModel() {
         try {
             val htmlContent: String =
                 AssetUtil.getHtmlTemplateFileContent(context, HTML_CONTENT_FILE_TITLE)
-                    .replace("<PLACEMENT>", properties.placementName)
-                    .replace("<MODE>", properties.mode)
+                    .replace(PLACEMENT_PLACE_HOLDER, properties.placementName)
+                    .replace(MODE_PLACE_HOLDER, properties.mode)
             webView.loadDataWithBaseURL(BASE_URL, htmlContent, "text/html", "UTF-8", "")
         } catch (e: Exception) {
             println("Failed to read asset file: ${e.localizedMessage}")
@@ -71,8 +74,8 @@ class TaboolaWebWrapperViewModel : ViewModel() {
         try {
             val htmlContent: String =
                 AssetUtil.getHtmlTemplateFileContent(context, HTML_CONTENT_FILE_TITLE)
-                    .replace("<PLACEMENT>", properties.placementName)
-                    .replace("<MODE>", properties.mode)
+                    .replace(PLACEMENT_PLACE_HOLDER, properties.placementName)
+                    .replace(MODE_PLACE_HOLDER, properties.mode)
             webView.loadDataWithBaseURL(BASE_URL, htmlContent, "text/html", "UTF-8", "")
         } catch (e: Exception) {
             println("Failed to read asset file: ${e.localizedMessage}")
