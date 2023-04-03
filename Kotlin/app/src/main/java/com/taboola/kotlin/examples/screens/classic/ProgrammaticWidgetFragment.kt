@@ -36,7 +36,7 @@ class ProgrammaticWidgetFragment : Fragment() {
      * Define a Page that represents this screen, get a Unit from it, add it to screen and fetch its content
      * Notice: A Unit of limited items, called "Widget" in Taboola, can be set in TBL_PLACEMENT_TYPE.PAGE_BOTTOM or TBL_PLACEMENT_TYPE.PAGE_MIDDLE
      */
-    private fun getTaboolaUnit(properties: PlacementInfo.Properties) : TBLClassicUnit {
+    private fun getTaboolaUnit(properties: PlacementInfo.WidgetProperties) : TBLClassicUnit {
         // Define a page to control all Unit placements on this screen
         val classicPage: TBLClassicPage = Taboola.getClassicPage(properties.pageUrl, properties.pageType)
 

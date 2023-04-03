@@ -53,7 +53,7 @@ class WidgetFragment : Fragment() {
     private fun displayContent(
         contentLayout: LinearLayout,
         recommendationsResponse: TBLRecommendationsResponse?,
-        placementProperties: PlacementInfo.Properties
+        placementProperties: PlacementInfo.WidgetProperties
     ) {
         if (recommendationsResponse == null) {
             println("Error: No recommendations returned from server.")
@@ -87,7 +87,7 @@ class WidgetFragment : Fragment() {
      * Define a Page that represents this screen, get a Unit from it, add it to screen and fetch its content
      * Notice: A Unit of unlimited items, called "Feed" in Taboola, can be set in TBL_PLACEMENT_TYPE.PAGE_BOTTOM only.
      */
-    private fun getTaboolaUnit(properties: PlacementInfo.Properties): TBLNativeUnit {
+    private fun getTaboolaUnit(properties: PlacementInfo.WidgetProperties): TBLNativeUnit {
         // Define a page to control all Unit placements on this screen
         val nativePage: TBLNativePage =
             Taboola.getNativePage(properties.sourceType, properties.pageUrl)

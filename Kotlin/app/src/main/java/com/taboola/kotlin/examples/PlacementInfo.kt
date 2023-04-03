@@ -1,9 +1,9 @@
 package com.taboola.kotlin.examples
 
 class PlacementInfo {
-    // Definitions common for placement properties
-    abstract class Properties {
-        open val placementName = "Mid Article"
+
+    class WidgetProperties  {
+        val placementName = "Widget without video"
         val sourceType = "text"
         val pageType = "article"
         val pageUrl = "https://blog.taboola.com"
@@ -11,20 +11,31 @@ class PlacementInfo {
         val mode = "thumbs-feed-01"
     }
 
-    class WidgetProperties : Properties() {
-        override val placementName = "Widget without video"
+    class ClassicFeedProperties {
+        val placementName = "Feed with video"
+        val sourceType = "text"
+        val pageType = "article"
+        val pageUrl = "https://blog.taboola.com"
+        val targetType = "mix"
+        val mode = "thumbs-feed-01"
     }
 
-    class ClassicFeedProperties : Properties() {
-        override val placementName = "Feed with video"
+    class NativeFeedProperties {
+        val placementName = "list_item"
+        val sourceType = "text"
+        val pageType = "article"
+        val pageUrl = "https://blog.taboola.com"
+        val targetType = "mix"
+        val mode = "thumbs-feed-01"
     }
 
-    class NativeFeedProperties : Properties() {
-        override val placementName = "list_item"
-    }
-
-    class WebFeedProperties : Properties() {
-        override val placementName = "Feed without video"
+    class WebFeedProperties  {
+        val placementName = "Feed without video"
+        val sourceType = "text"
+        val pageType = "article"
+        val pageUrl = "https://blog.taboola.com"
+        val targetType = "mix"
+        val mode = "thumbs-feed-01"
     }
 
     // Static access
