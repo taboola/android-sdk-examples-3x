@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.taboola.sdk3example.sdk_classic.EcommWidgetBelowArticleFragment;
 import com.taboola.sdk3example.sdk_classic.FeedInsideRecyclerViewCustomFragment;
 import com.taboola.sdk3example.sdk_classic.FeedLazyLoadInsideRecyclerViewFragment;
 import com.taboola.sdk3example.sdk_classic.FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment;
@@ -64,6 +66,7 @@ public class SDKClassicMenuFragment extends Fragment implements View.OnClickList
         addButton(getString(R.string.std_feed_pull_to_refresh), R.id.std_feed_pull_to_refresh, viewGroup);
         addButton(getString(R.string.std_feed_lazy_loading_rv), R.id.std_feed_lazy_loading_rv, viewGroup);
         addButton(getString(R.string.std_mid_article_with_feed_dark_mode_rv), R.id.std_mid_article_with_feed_dark_mode_rv, viewGroup);
+        addButton(getString(R.string.std_below_article_ecomm_lv), R.id.std_below_article_ecomm_lv, viewGroup);
     }
 
 
@@ -108,6 +111,9 @@ public class SDKClassicMenuFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.std_mid_article_with_feed_dark_mode_rv:
                 fragmentToOpen = new FeedWithMiddleArticleDarkModeInsideRecyclerViewFragment();
+                break;
+            case R.id.std_below_article_ecomm_lv:
+                fragmentToOpen = new EcommWidgetBelowArticleFragment();
                 break;
         }
 
